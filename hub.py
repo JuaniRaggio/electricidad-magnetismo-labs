@@ -26,9 +26,7 @@ with st.container(border=True):
     col1, col2 = st.columns(2)
     col1.markdown("**Componentes:** Resistencia, Diodo, Lampara, LED")
     col2.markdown("**Paginas:** 7 modulos de analisis")
-    # Descomentar y reemplazar URL cuando este deployado:
-    # st.link_button("Abrir dashboard", "https://tu-app.streamlit.app")
-    st.info("Ejecutar localmente: `streamlit run curvas_caracteristicas/dashboard/app.py`")
+    st.link_button("Abrir dashboard", "https://electricidad-magnetismo.streamlit.app/#tp-1-curvas-caracteristicas-i-v")
 
 # --- TPs futuros (descomentar cuando se agreguen) ---
 
