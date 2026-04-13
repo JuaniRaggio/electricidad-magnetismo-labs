@@ -10,7 +10,7 @@ st.markdown("---")
 st.header("Laboratorios")
 
 with st.container(border=True):
-    st.subheader("TP1 - Curvas Caracteristicas I-V")
+    st.subheader("Curvas Caracteristicas I-V")
     st.markdown("""
     Analisis interactivo de curvas I-V de resistencia, diodo, lampara y LED.
     Incluye ajuste de modelos, Monte Carlo, resistencia dinamica,
@@ -19,7 +19,7 @@ with st.container(border=True):
     col1, col2 = st.columns(2)
     col1.markdown("**Componentes:** Resistencia, Diodo, Lampara, LED")
     col2.markdown("**Paginas:** 7 modulos de analisis")
-    if st.button("Ir al TP1", key="btn_tp1", type="primary"):
+    if st.button("Ir a Curvas Caracteristicas", key="btn_tp1", type="primary"):
         st.session_state.current_tp = "tp1"
         st.rerun()
 

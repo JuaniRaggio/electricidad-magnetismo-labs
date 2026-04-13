@@ -17,8 +17,8 @@ if st.session_state.current_tp is None:
         position="hidden",
     )
 
-elif st.session_state.current_tp == "tp1":
-    # --- TP1: con sidebar ---
+else:  # curvas caracteristicas (agregar mas elif cuando haya mas TPs)
+    # --- Curvas Caracteristicas: con sidebar ---
     pg = st.navigation([
         st.Page("curvas_caracteristicas/dashboard/pages/0_resumen.py", title="Resumen", default=True),
         st.Page("curvas_caracteristicas/dashboard/pages/1_curvas_iv.py", title="Curvas I-V"),
