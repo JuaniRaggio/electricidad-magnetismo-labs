@@ -11,7 +11,6 @@ import pandas as pd
 from data import obtener_todos, q, h, c
 from analysis import energia_gap_led
 
-st.set_page_config(page_title="Energia Gap LED", layout="wide")
 st.title("Energia del Gap del LED")
 st.markdown("Estimacion de $E_g$ y $\\lambda$ a partir de la tension umbral $V_{th}$")
 

@@ -4,46 +4,40 @@ import streamlit as st
 
 st.set_page_config(
     page_title="Fisica III - Labs",
-    layout="centered",
-    initial_sidebar_state="collapsed",
+    layout="wide",
+    initial_sidebar_state="expanded",
 )
 
-st.title("Electricidad y Magnetismo")
-st.markdown("**Fisica III | ITBA**")
+# --- Navegacion con secciones ---
+pg = st.navigation({
+    "Inicio": [
+        st.Page("pages/inicio.py", title="Hub", default=True),
+    ],
+    "TP1 - Curvas Caracteristicas": [
+        st.Page("curvas_caracteristicas/dashboard/pages/0_resumen.py", title="Resumen"),
+        st.Page("curvas_caracteristicas/dashboard/pages/1_curvas_iv.py", title="Curvas I-V"),
+        st.Page("curvas_caracteristicas/dashboard/pages/2_ajuste_interactivo.py", title="Ajuste Interactivo"),
+        st.Page("curvas_caracteristicas/dashboard/pages/3_resistencia_dinamica.py", title="Resistencia Dinamica"),
+        st.Page("curvas_caracteristicas/dashboard/pages/4_monte_carlo.py", title="Monte Carlo"),
+        st.Page("curvas_caracteristicas/dashboard/pages/5_temperatura_filamento.py", title="Temperatura Filamento"),
+        st.Page("curvas_caracteristicas/dashboard/pages/6_factor_idealidad.py", title="Factor de Idealidad"),
+        st.Page("curvas_caracteristicas/dashboard/pages/7_energia_gap.py", title="Energia Gap LED"),
+    ],
+    # "TP2 - ...": [
+    #     st.Page("tp2/dashboard/pages/...", title="..."),
+    # ],
+})
 
-st.markdown("---")
-
-st.header("Laboratorios")
-
-# --- TP1 ---
-with st.container(border=True):
-    st.subheader("TP1 - Curvas Caracteristicas I-V")
+# --- Sidebar comun ---
+with st.sidebar:
+    st.markdown("---")
     st.markdown("""
-    Analisis interactivo de curvas I-V de resistencia, diodo, lampara y LED.
-    Incluye ajuste de modelos, Monte Carlo, resistencia dinamica,
-    temperatura del filamento y energia del gap.
+    **Integrantes:**
+    Raggio, Moralejo, Pipet, Olivero, Abramzon
+
+    **Jefe de Catedra:** Andres Medus
+
+    **Fisica III | ITBA**
     """)
-    col1, col2 = st.columns(2)
-    col1.markdown("**Componentes:** Resistencia, Diodo, Lampara, LED")
-    col2.markdown("**Paginas:** 7 modulos de analisis")
-    st.link_button("Abrir dashboard", "https://electricidad-magnetismo.streamlit.app/#tp-1-curvas-caracteristicas-i-v")
 
-# --- TPs futuros (descomentar cuando se agreguen) ---
-
-# with st.container(border=True):
-#     st.subheader("TP2 - ...")
-#     st.markdown("Descripcion del TP2.")
-#     st.info("Ejecutar localmente: `streamlit run tp2/dashboard/app.py`")
-
-# with st.container(border=True):
-#     st.subheader("TP3 - ...")
-#     st.markdown("Descripcion del TP3.")
-#     st.info("Ejecutar localmente: `streamlit run tp3/dashboard/app.py`")
-
-st.markdown("---")
-
-st.markdown("""
-**Integrantes:** Raggio, Moralejo, Pipet, Olivero, Abramzon
-
-**Jefe de Catedra:** Andres Medus
-""")
+pg.run()
