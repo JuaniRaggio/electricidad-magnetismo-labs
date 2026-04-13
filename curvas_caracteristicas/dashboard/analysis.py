@@ -10,16 +10,32 @@ def resistencia_dinamica(V, I, window=5, polyorder=2):
     """Calcula resistencia dinamica r(V) = dV/dI.
 
     Usa savgol_filter para suavizar la derivada numerica.
+    Maneja puntos duplicados en V agregando un offset minimo.
     """
+    V = np.array(V, dtype=float)
+    I = np.array(I, dtype=float)
+
+    # Evitar V duplicados que causan division por cero en np.gradient
+    dV = np.diff(V)
+    dV[dV == 0] = 1e-9
+    V_safe = np.concatenate([[V[0]], V[0] + np.cumsum(dV)])
+
     if window % 2 == 0:
         window += 1
-    window = min(window, len(V) - 1)
+    window = min(window, len(V_safe) - 1)
     if window < polyorder + 1:
         window = polyorder + 2
         if window % 2 == 0:
             window += 1
 
-    dI_dV = np.gradient(I, V)
+    dI_dV = np.gradient(I, V_safe)
+
+    # Reemplazar NaN/Inf antes del filtro
+    finite_mask = np.isfinite(dI_dV)
+    if not np.all(finite_mask):
+        mean_val = np.nanmean(dI_dV[finite_mask]) if np.any(finite_mask) else 0.0
+        dI_dV[~finite_mask] = mean_val
+
     dI_dV_suave = savgol_filter(dI_dV, window, polyorder)
 
     r_din = np.where(np.abs(dI_dV_suave) > 1e-12, 1.0 / dI_dV_suave, np.inf)
