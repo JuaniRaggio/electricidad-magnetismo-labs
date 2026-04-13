@@ -1,6 +1,7 @@
 """Modelos fisicos para ajuste de curvas I-V."""
 
 import numpy as np
+from scipy.special import lambertw
 from data import V_T
 
 
@@ -10,18 +11,15 @@ def modelo_resistencia(V, R):
 
 
 def modelo_diodo(V, I_s, n, R_s):
-    """Shockley con resistencia serie (resuelto iterativamente).
+    """Shockley con resistencia serie (solucion analitica via Lambert W).
 
-    V_j = V - I * R_s
-    I = I_s * (exp(V_j / (n * V_T)) - 1)
+    I = (n*V_T/R_s) * W(I_s*R_s/(n*V_T) * exp(V/(n*V_T)))
+    Valido en polarizacion directa donde exp >> 1.
     """
-    I = np.zeros_like(V, dtype=float)
-    for _ in range(100):
-        V_j = V - I * R_s
-        exponente = np.clip(V_j / (n * V_T), -500, 500)
-        I_new = I_s * (np.exp(exponente) - 1)
-        I = 0.7 * I + 0.3 * np.clip(I_new, 0, 10)
-    return I
+    nVt = n * V_T
+    z = I_s * R_s / nVt * np.exp(np.clip(V / nVt, -500, 500))
+    W = np.real(lambertw(z))
+    return nVt / R_s * W
 
 
 def modelo_lampara_potencial(V, a, b):
@@ -30,14 +28,11 @@ def modelo_lampara_potencial(V, a, b):
 
 
 def modelo_led(V, I_s, n, R_s):
-    """Shockley con resistencia serie para LED."""
-    I = np.zeros_like(V, dtype=float)
-    for _ in range(100):
-        V_j = V - I * R_s
-        exponente = np.clip(V_j / (n * V_T), -500, 500)
-        I_new = I_s * (np.exp(exponente) - 1)
-        I = 0.7 * I + 0.3 * np.clip(I_new, 0, 10)
-    return I
+    """Shockley con resistencia serie para LED (Lambert W)."""
+    nVt = n * V_T
+    z = I_s * R_s / nVt * np.exp(np.clip(V / nVt, -500, 500))
+    W = np.real(lambertw(z))
+    return nVt / R_s * W
 
 
 # Configuracion de modelos por componente
@@ -54,7 +49,7 @@ MODELOS = {
         "nombres_params": ["I_s", "n", "R_s"],
         "unidades": ["A", "", "Ohm"],
         "p0": [1e-10, 1.8, 5.0],
-        "bounds": ([1e-30, 1.0, 0.1], [1e-3, 3.0, 50.0]),
+        "bounds": ([1e-30, 1.0, 0.01], [1e-3, 5.0, 50.0]),
     },
     "lampara": {
         "funcion": modelo_lampara_potencial,
@@ -67,8 +62,8 @@ MODELOS = {
         "funcion": modelo_led,
         "nombres_params": ["I_s", "n", "R_s"],
         "unidades": ["A", "", "Ohm"],
-        "p0": [1e-15, 2.0, 10.0],
-        "bounds": ([1e-40, 1.0, 0.1], [1e-3, 10.0, 200.0]),
+        "p0": [1e-5, 7.0, 40.0],
+        "bounds": ([1e-20, 1.0, 0.1], [1.0, 30.0, 500.0]),
     },
 }
 
@@ -80,17 +75,17 @@ SLIDER_CONFIG = {
     "diodo": {
         "I_s": {"min": -30.0, "max": -3.0, "step": 0.1, "default": -10.0, "formato": "%.1f",
                 "es_log": True, "label": "log10(I_s)"},
-        "n": {"min": 1.0, "max": 3.0, "step": 0.01, "default": 1.8, "formato": "%.2f"},
-        "R_s": {"min": 0.1, "max": 50.0, "step": 0.1, "default": 5.0, "formato": "%.1f"},
+        "n": {"min": 1.0, "max": 5.0, "step": 0.01, "default": 1.8, "formato": "%.2f"},
+        "R_s": {"min": 0.01, "max": 50.0, "step": 0.1, "default": 5.0, "formato": "%.1f"},
     },
     "lampara": {
         "a": {"min": 0.001, "max": 0.2, "step": 0.001, "default": 0.035, "formato": "%.4f"},
         "b": {"min": 0.1, "max": 2.0, "step": 0.01, "default": 0.5, "formato": "%.2f"},
     },
     "led": {
-        "I_s": {"min": -40.0, "max": -3.0, "step": 0.1, "default": -15.0, "formato": "%.1f",
+        "I_s": {"min": -20.0, "max": -3.0, "step": 0.1, "default": -8.0, "formato": "%.1f",
                 "es_log": True, "label": "log10(I_s)"},
-        "n": {"min": 1.0, "max": 10.0, "step": 0.1, "default": 2.0, "formato": "%.1f"},
-        "R_s": {"min": 0.1, "max": 200.0, "step": 0.5, "default": 10.0, "formato": "%.1f"},
+        "n": {"min": 1.0, "max": 30.0, "step": 0.1, "default": 5.0, "formato": "%.1f"},
+        "R_s": {"min": 0.1, "max": 100.0, "step": 0.5, "default": 10.0, "formato": "%.1f"},
     },
 }
