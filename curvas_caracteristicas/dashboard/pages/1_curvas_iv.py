@@ -9,7 +9,6 @@ import numpy as np
 
 from data import obtener_todos
 
-st.set_page_config(page_title="Curvas I-V", layout="wide")
 st.title("Curvas I-V - Explorador Interactivo")
 
 datos = obtener_todos()

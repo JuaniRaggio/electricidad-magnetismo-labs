@@ -11,7 +11,6 @@ import pandas as pd
 from data import obtener_todos
 from analysis import resistencia_dinamica
 
-st.set_page_config(page_title="Resistencia Dinamica", layout="wide")
 st.title("Resistencia Dinamica")
 st.markdown("$r(V) = dV/dI$ - pendiente local de la curva I-V")
 
