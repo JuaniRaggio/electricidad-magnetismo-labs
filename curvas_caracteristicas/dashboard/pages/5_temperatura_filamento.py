@@ -11,6 +11,7 @@ import numpy as np
 from data import obtener_todos, T_amb, R0_LAMPARA, T_FUSION_W
 from analysis import temperatura_filamento, verificacion_stefan_boltzmann
 
+st.set_page_config(page_title="Temperatura Filamento", layout="wide")
 st.title("Temperatura del Filamento")
 st.markdown("Estimacion de T(V) y T(P) a partir de la variacion de resistencia con temperatura.")
 

@@ -11,6 +11,7 @@ import pandas as pd
 from data import obtener_todos, V_T
 from analysis import factor_idealidad
 
+st.set_page_config(page_title="Factor de Idealidad", layout="wide")
 st.title("Factor de Idealidad")
 st.markdown("Extraccion de $n$ del grafico semilogaritmico: $\\ln(I) = \\ln(I_s) + V/(nV_T)$")
 

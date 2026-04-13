@@ -12,6 +12,7 @@ from data import obtener_todos
 from models import MODELOS, SLIDER_CONFIG
 from fitting import ajustar_componente
 
+st.set_page_config(page_title="Ajuste Interactivo", layout="wide")
 st.title("Ajuste Interactivo de Modelos")
 
 datos = obtener_todos()
