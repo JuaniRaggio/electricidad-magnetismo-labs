@@ -11,6 +11,7 @@ from data import obtener_todos
 from models import MODELOS
 from fitting import ajustar_componente, monte_carlo
 
+st.set_page_config(page_title="Monte Carlo", layout="wide")
 st.title("Simulacion Monte Carlo")
 st.markdown("Propagacion de incertidumbres experimentales mediante perturbacion gaussiana de los datos.")
 
