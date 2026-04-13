@@ -1,5 +1,7 @@
 # Electricidad y Magnetismo - Laboratorios
 
+**Integrantes:** Raggio, Moralejo, Pipet, Olivero, Abramzon
+
 ## Curvas Caracteristicas I-V
 
 Dashboard interactivo: https://curvas-caracteristicas.streamlit.app/
