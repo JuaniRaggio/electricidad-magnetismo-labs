@@ -29,6 +29,15 @@ with st.sidebar:
     **Trabajo Practico 1**
     Curvas caracteristicas de componentes electricos
 
+    **Integrantes:**
+    - Juan Ignacio Raggio
+    - Catalina Moralejo
+    - Milagros Maria Pipet
+    - Olivero
+    - Abramzon
+
+    **Jefe de Catedra:** Andres Medus
+
     **Componentes:**
     - Resistencia
     - Diodo
