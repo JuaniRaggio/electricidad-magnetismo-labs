@@ -6,15 +6,24 @@ def graficar_resistencia(tension_V, corriente_mA, guardar='./grafico.png'):
     tension = np.array(tension_V)
     corriente = np.array(corriente_mA)
 
-    coef = np.polyfit(corriente, tension, 1)
+    coef = np.polyfit(tension, corriente, 1)
     ajuste = np.poly1d(coef)
+    R = 1000.0 / coef[0]  # coef[0] en mA/V, R en ohm
+
+    ss_res = np.sum((corriente - ajuste(tension)) ** 2)
+    ss_tot = np.sum((corriente - np.mean(corriente)) ** 2)
+    r2 = 1 - ss_res / ss_tot
+
+    V_ext = np.linspace(0, tension.max() * 1.05, 200)
 
     plt.figure(figsize=(8, 5))
-    plt.plot(corriente, tension, 'o', label='Datos medidos')
-    plt.plot(corriente, ajuste(corriente), '-', label=f'Ajuste lineal (R = {coef[0]:.1f} ohm)')
-    plt.xlabel('Corriente (mA)')
-    plt.ylabel('Tension (V)')
-    plt.title('Tension vs Corriente - Resistencia')
+    plt.plot(tension, corriente, 'o', label='Datos medidos')
+    plt.plot(V_ext, ajuste(V_ext), '-', label=f'Ajuste lineal (m = {coef[0]:.4f} mA/V, R = 1/m = {R:.1f} ohm, $R^2$ = {r2:.6f})')
+    plt.xlim(0, None)
+    plt.ylim(0, None)
+    plt.xlabel('Tension (V)')
+    plt.ylabel('Corriente (mA)')
+    plt.title('Curva I-V de la Resistencia')
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
