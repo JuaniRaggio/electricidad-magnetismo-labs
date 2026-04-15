@@ -331,7 +331,7 @@ Se realizaron 19 mediciones en intervalos de aproximadamente 0,5 V. Los datos co
 #v(0.5em)
 
 #figure(
-  image(img-dir + "grafico_resistencia.png", width: 80%),
+  image(img-dir + "grafico_resistencia.png", width: 70%),
   caption: [Curva I(V) de la resistencia con ajuste lineal por mínimos cuadrados.],
 ) <fig-resistencia>
 
@@ -345,6 +345,8 @@ $ R = 1 / m = 1 / (3","0776 space "mA/V") approx 325 space Omega $
 
 El coeficiente de determinación $R^2 = 0","9999$ confirma la excelente calidad del ajuste lineal.
 
+#pagebreak()
+
 == Lámpara de filamento de tungsteno
 
 Se realizaron 24 mediciones hasta un voltaje máximo de 12 V.
@@ -352,11 +354,9 @@ Se realizaron 24 mediciones hasta un voltaje máximo de 12 V.
 #v(0.5em)
 
 #figure(
-  image(img-dir + "grafico_lampara.png", width: 80%),
+  image(img-dir + "grafico_lampara.png", width: 70%),
   caption: [Curva I(V) de la lámpara de filamento de tungsteno.],
 ) <fig-lampara>
-
-#pagebreak()
 
 == Diodo de silicio
 
@@ -365,9 +365,11 @@ Se realizaron 19 mediciones entre 0,4 V y 2 V, sin superar 125 mA para proteger 
 #v(0.5em)
 
 #figure(
-  image(img-dir + "grafico_diodo.png", width: 80%),
+  image(img-dir + "grafico_diodo.png", width: 70%),
   caption: [Curva I(V) del diodo de silicio.],
 ) <fig-diodo>
+
+#pagebreak()
 
 == Diodo LED (rojo)
 
@@ -376,7 +378,7 @@ Se realizaron 30 mediciones manteniendo la corriente por debajo de 30 mA. Se agr
 #v(0.5em)
 
 #figure(
-  image(img-dir + "grafico_led.png", width: 80%),
+  image(img-dir + "grafico_led.png", width: 70%),
   caption: [Curva I(V) del diodo LED rojo.],
 ) <fig-led>
 
@@ -398,15 +400,31 @@ Este error se encuentra dentro de la tolerancia del componente, lo que valida ta
 
 == Lámpara de filamento
 
-La curva I(V) de la @fig-lampara muestra un comportamiento claramente no lineal: la corriente crece con la tensión pero con pendiente decreciente. Esto se debe a que, al aumentar la potencia disipada, la temperatura del filamento de tungsteno se eleva, incrementando su resistividad. La resistencia del filamento no es constante sino que depende de la tensión aplicada, lo que clasifica a la lámpara como un componente _no óhmico_.
+La curva I(V) de la @fig-lampara muestra un comportamiento claramente no lineal: la corriente crece con la tensión pero con pendiente decreciente. A partir de las 24 mediciones experimentales realizadas en el rango de 0,5 V a 12 V, se observó que la resistencia del filamento no es constante sino que aumenta significativamente desde $R approx 14","7 space Omega$ en el primer punto hasta $R approx 85","1 space Omega$ en el último. Este incremento refleja el efecto directo de la temperatura sobre el material conductor, cuyo comportamiento responde a la ecuación:
+
+$ R(T) = R_0 [1 + alpha (T - T_0)] $
+
+Esta variación se explica por el efecto Joule. Al circular corriente eléctrica, el filamento se calienta, provocando que los átomos de su red cristalina vibren con mayor amplitud. Estas vibraciones actúan como obstáculos que reducen la movilidad de los electrones de conducción. Al aumentar los choques, gran parte de la energía cinética de los electrones se transfiere como calor, lo que incrementa progresivamente la resistividad del material.
+
+Es fundamental destacar que la no linealidad observada en la curva no implica una violación de la ley de Ohm. El tungsteno conserva su carácter óhmico en todo momento: a cada temperatura fija, la relación entre corriente y tensión es lineal ($bold(J) = sigma bold(E)$, con $sigma$ independiente del campo eléctrico). Sin embargo, al tratarse de un sistema con acoplamiento eléctrico-térmico ---donde la propia corriente modifica la temperatura y, con ella, la resistividad--- la pendiente del gráfico varía constantemente. En frío, la curva inicia con una pendiente pronunciada (menor resistencia), pero a medida que el filamento se calienta, la resistencia aumenta y la curva disminuye su pendiente. La relación $V = I dot R$ se cumple estrictamente en cada estado térmico estable del material, pero como $R$ depende del punto de operación, la lámpara como dispositivo se clasifica como _no óhmica_.
 
 == Diodo de silicio
 
-La @fig-diodo exhibe la curva exponencial típica de un diodo semiconductor. Por debajo de aproximadamente 0,5 V la corriente es prácticamente nula (zona de corte), y a partir de esa tensión umbral la corriente crece de forma exponencial. Este comportamiento es marcadamente no lineal y está gobernado por la ecuación de Shockley del diodo.
+La @fig-diodo exhibe la curva exponencial típica de un diodo semiconductor. El diodo consiste en una juntura PN: la unión de un semiconductor tipo _n_ (con exceso de electrones libres por átomos donantes de valencia 5) y uno tipo _p_ (con exceso de huecos por átomos aceptores de valencia 3). En la interfaz se forma una _zona de depleción_, región desprovista de portadores libres donde se establece una barrera de potencial interna de aproximadamente 0,7 V para el silicio.
+
+Por debajo de esta tensión umbral, la corriente es prácticamente nula (zona de corte): el campo eléctrico externo no alcanza a superar la barrera interna de la juntura, y los portadores mayoritarios no pueden cruzarla. A partir de $V approx 0","5$ V se observa el inicio de la conducción, y la corriente crece de forma exponencial conforme la tensión externa reduce progresivamente la barrera de potencial. Este comportamiento está gobernado por la ecuación de Shockley:
+
+$ I = I_s (e^(V \/ n V_T) - 1) $
+
+donde $I_s$ es la corriente de saturación inversa, $n$ el factor de idealidad y $V_T = k T \/ q approx 26$ mV a temperatura ambiente. A diferencia de la lámpara, la no linealidad del diodo es _intrínseca_ al dispositivo: surge de la física de la juntura PN y no de un efecto térmico acoplado. El diodo es un componente marcadamente no óhmico.
 
 == Diodo LED
 
-La @fig-led presenta un comportamiento similar al diodo de silicio, con una tensión umbral más elevada (aproximadamente 1,7--1,8 V), a partir de la cual la corriente comienza a crecer. Esta tensión umbral está directamente relacionada con la energía del gap del semiconductor, que a su vez determina la longitud de onda de la luz emitida. El LED utilizado, de color rojo, es consistente con una tensión umbral en este rango.
+La @fig-led presenta un comportamiento cualitativamente similar al del diodo de silicio, ya que el LED es fundamentalmente un diodo de juntura PN. Sin embargo, su tensión umbral es más elevada (aproximadamente 1,7--1,8 V en nuestras mediciones), lo cual es consistente con el valor teórico de 1,8 V reportado para LEDs rojos.
+
+La diferencia principal respecto al diodo convencional es el fenómeno de _electroluminiscencia_: cuando los electrones cruzan la juntura y se recombinan con los huecos, la energía liberada se emite como fotones de luz visible en lugar de disiparse como calor. La energía de estos fotones está determinada por el gap del semiconductor ($E_g = q V_"th"$), que a su vez fija la longitud de onda de la luz emitida según $lambda = h c \/ E_g$. Para un LED rojo, esto predice $lambda approx 620$--$700$ nm, consistente con el color observado durante la experiencia.
+
+Al igual que el diodo de silicio, el LED es un componente no óhmico cuya no linealidad es intrínseca a la estructura del semiconductor.
 
 // =============================================
 // 6. CONCLUSIONES
