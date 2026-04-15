@@ -1,76 +1,39 @@
 #set document(
-  title: "TP 1 - Fisica III",
-  author: ("Juan Ignacio Raggio", "Catalina Moralejo", "Milagros Maria Pipet", "", ""),
+  title: "TP 1 - Curvas Características - Física III",
+  author: ("Juan Ignacio Raggio", "Catalina Moralejo", "María Milagros Pipet", "Mora Olivero", "Julieta Abramzon"),
 )
-
-// Comision + Horario
 
 #set page(
   paper: "a4",
-  margin: (
-    top: 2.5cm,
-    bottom: 2.5cm,
-    left: 2cm,
-    right: 2cm,
-  ),
+  margin: (top: 2.5cm, bottom: 2.5cm, left: 2cm, right: 2cm),
   numbering: "1",
   number-align: bottom + right,
-
-  header: [
-    #set text(size: 9pt, fill: gray)
-    #grid(
-      columns: (1fr, 1fr),
-      align: (left, right),
-      [Raggio, Moralejo, Pipet, Olivero, Abramzon],
-      [#datetime.today().display("[day]/[month]/[year]")]
-    )
-    #line(length: 100%, stroke: 0.5pt + gray)
-  ],
-
-  footer: context [
-    #set text(size: 9pt, fill: gray)
-    #line(length: 100%, stroke: 0.5pt + gray)
-    #v(0.2em)
-    #align(center)[
-      Page #counter(page).display() of #counter(page).final().first()
-    ]
-  ]
 )
 
 #set text(
-  font: "New Computer Modern",
-  size: 11pt,
-  lang: "en",
+  font: "Times New Roman",
+  size: 12pt,
+  lang: "es",
   hyphenate: true,
 )
 
 #set par(
   justify: true,
   leading: 0.65em,
-  first-line-indent: 0em,
+  first-line-indent: 2em,
   spacing: 1.2em,
 )
 
 #set heading(numbering: "1.1")
-#show heading.where(level: 1): set text(size: 16pt, weight: "bold")
-#show heading.where(level: 2): set text(size: 14pt, weight: "bold")
-#show heading.where(level: 3): set text(size: 12pt, weight: "bold")
+#show heading.where(level: 1): set text(size: 15pt, weight: "bold")
+#show heading.where(level: 2): set text(size: 13pt, weight: "bold")
 
 #show heading: it => {
+  set par(first-line-indent: 0em)
   v(0.5em)
   it
   v(0.3em)
 }
-
-#set list(indent: 1em, marker: ([•], [◦], [▪]))
-#set enum(indent: 1em, numbering: "1.a.")
-
-#show raw.where(block: false): box.with(
-  fill: luma(240),
-  inset: (x: 3pt, y: 0pt),
-  outset: (y: 3pt),
-  radius: 2pt,
-)
 
 #show raw.where(block: true): block.with(
   fill: luma(240),
@@ -79,124 +42,379 @@
   width: 100%,
 )
 
-#show link: underline
+#let img-dir = "Tp_ Curvas Características/images/"
 
-// Helper functions
-#let note(content) = {
-  block(
-    fill: rgb("#E3F2FD"),
-    stroke: rgb("#1976D2") + 1pt,
-    inset: 10pt,
-    radius: 4pt,
-    width: 100%,
-  )[
-    #text(weight: "bold", fill: rgb("#1976D2"))[Note:] #content
-  ]
-}
+// =============================================
+// CARATULA (formato obligatorio de la catedra)
+// =============================================
 
-#let important(content) = {
-  block(
-    fill: rgb("#FFF3E0"),
-    stroke: rgb("#F57C00") + 1pt,
-    inset: 10pt,
-    radius: 4pt,
-    width: 100%,
-  )[
-    #text(weight: "bold", fill: rgb("#F57C00"))[Important:] #content
-  ]
-}
+#set par(first-line-indent: 0em)
 
-#let tip(content) = {
-  block(
-    fill: rgb("#E8F5E9"),
-    stroke: rgb("#388E3C") + 1pt,
-    inset: 10pt,
-    radius: 4pt,
-    width: 100%,
-  )[
-    #text(weight: "bold", fill: rgb("#388E3C"))[Tip:] #content
-  ]
-}
-
-#let warning(content) = {
-  block(
-    fill: rgb("#FFEBEE"),
-    stroke: rgb("#D32F2F") + 1pt,
-    inset: 10pt,
-    radius: 4pt,
-    width: 100%,
-  )[
-    #text(weight: "bold", fill: rgb("#D32F2F"))[Warning:] #content
-  ]
-}
-
-// Cover page
 #align(center)[
-  #v(2em)
-  #image("../assets/ITBAgua.png", width: 40%)
-  #v(1em)
-  #text(size: 24pt, weight: "bold")[Fisica III - Electricidad y Magnetismo]
+  #text(size: 13pt)[TRABAJO PRACTICO N° 1]
   #v(0.5em)
-  #text(size: 20pt, weight: "bold")[1er Trabajo Practico]
-  #v(0.5em)
-  #text(size: 18pt)[Curvas Caracteristicas] \
-  #text(size: 14pt, fill: gray)[Comision B - Laboratorio: Miercoles 10am]
-  #v(1em)
-  #text(size: 12pt)[
-    *Authors:* \
-    Juan Ignacio Raggio \
-    Catalina Moralejo \
-    Milagros Maria Pipet \
-    Mora Olivero \
-    Julieta Abramzon\
-  ]
-  #v(0.5em)
-  #text(size: 12pt, fill: gray)[
-    Primer Cuatrimetre 2026 \
-    08/04/2026
-  ]
-  #v(2em)
+  #text(size: 18.5pt)[Curvas Características]
 ]
 
-#line(length: 100%, stroke: 1pt)
+#v(2em)
+
+GRUPO N° 5
+
+#v(0.5em)
+
+Integrantes del grupo:
+
+#v(0.5em)
+
+63319 Raggio, Juan Ignacio
+
+64695 Moralejo, Catalina
+
+65104 Pipet, María Milagros
+
+65386 Olivero, Mora
+
+65675 Abramzon, Julieta
+
+#v(2em)
+
+Fecha de realización del trabajo práctico: 8/4/2026
+
+Fecha de entrega del informe: 15/4/2026
+
 #v(1em)
+
+#block(
+  stroke: 1pt + black,
+  inset: 10pt,
+  width: 100%,
+)[
+  Observaciones:
+  #repeat[.]
+  #repeat[.]
+  #repeat[.]
+]
+
+#v(1em)
+
+Fecha de aprobación:
+
+#v(1em)
+
+Firma del docente:
 
 #pagebreak()
 
-// Table of contents
-#outline(
-  title: [Table of Contents],
-  indent: auto,
-  depth: 3
+// =============================================
+// CONTENIDO
+// =============================================
+
+#set par(first-line-indent: 2em)
+
+= Objetivos y Resumen
+
+El objetivo de esta práctica es determinar las curvas características I(V) de distintos elementos de dos terminales, con el fin de analizar si tienen comportamiento óhmico o no, a partir de la observación de su linealidad.
+
+Para esto se utilizó una resistencia de carbón depositado, una lámpara de filamento de tungsteno, diodos semiconductores de silicio y diodos semiconductores LED. En cada caso lo que se hizo fue ir variando la tensión de la fuente con suma precaución de no sobrepasar los valores máximos permitidos, registrándose así distintos valores de corriente.
+
+Las mediciones de corriente y diferencia de potencial se realizaron con un amperímetro y un voltímetro respectivamente. A partir de los datos obtenidos se realizaron gráficos para cada uno de los elementos analizados.
+
+= Introducción teórica
+
+En los circuitos eléctricos el comportamiento de los distintos componentes puede analizarse mediante la relación entre la corriente eléctrica que circula por ellos y la diferencia de potencial entre sus terminales. La diferencia de potencial representa la energía por unidad de carga necesaria para mover dichas cargas entre dos puntos, y se mide en volts (V).
+
+Mientras que la corriente describe la rapidez de flujo de carga a través de un material conductor y se mide en amperes (A) equivalente a Coulomb por segundo. La corriente promedio se obtiene dividiendo la cantidad de carga que pasa por un punto entre el intervalo de tiempo considerado. Cuando la corriente varía con el tiempo, se define la corriente instantánea como la variación de carga respecto del tiempo.
+
+Todo material presenta cierta oposición al paso de la corriente eléctrica. A esta propiedad se le denomina resistencia eléctrica, la cual se mide en ohmios ($Omega$) y depende tanto de la resistividad del material como de la geometría del conductor.
+
+Un material óhmico se define como aquel cuya densidad de corriente es proporcional al campo eléctrico. Este exhibe una relación lineal entre el voltaje y la corriente. En estos materiales la resistencia es constante y se define como el cociente entre la diferencia de potencial y la corriente.
+
+#set par(first-line-indent: 0em)
+$ R equiv (Delta V) / I #h(4em) [1] $
+#set par(first-line-indent: 2em)
+
+Para poder determinar si un material es óhmico se trazan las curvas características según la función:
+
+#set par(first-line-indent: 0em)
+$ I = f(V) #h(4em) [2] $
+#set par(first-line-indent: 2em)
+
+Si la correspondencia entre la corriente y el voltaje es lineal se dice que el material es óhmico. En este caso la pendiente representa la inversa de la resistencia eléctrica del material. Aquellos materiales o dispositivos donde la resistencia cambia con el voltaje o la dirección de la corriente se denominan no óhmicos.
+
+Independientemente del tipo de material, el paso de la corriente a través de un conductor produce una disipación de calor conocida como efecto Joule. Esta transformación de energía eléctrica en térmica es directamente proporcional a la resistencia del material, al tiempo de circulación y al cuadrado de la intensidad de la corriente.
+
+#set par(first-line-indent: 0em)
+$ Q = I^2 dot R dot t #h(4em) [3] $
+#set par(first-line-indent: 2em)
+
+= Instrumentos y elementos empleados
+
+Para la realización de este trabajo se utilizó una fuente de alimentación de corriente continua, cables de conexión, un voltímetro dispuesto en paralelo y un amperímetro dispuesto en serie.
+
+Se emplearon además distintos elementos del circuito: una resistencia de carbón depositado, una lámpara de filamento de tungsteno, un diodo de silicio y un diodo LED.
+
+La resistencia (220 $Omega$) es un componente pasivo lineal en el cual la tensión es proporcional a la corriente que circula, cumpliendo la ley de Ohm.
+
+La lámpara de filamento produce luz por incandescencia al elevarse la temperatura del filamento de tungsteno debido al paso de corriente, presentando un comportamiento no lineal.
+
+El diodo de silicio es un dispositivo semiconductor que permite la circulación de corriente en un solo sentido, mientras que el diodo LED, además de esta propiedad, emite luz cuando es atravesado por corriente eléctrica.
+
+Estos elementos permiten analizar tanto comportamientos óhmicos como no óhmicos a partir de la relación entre la corriente y la tensión aplicada.
+
+#v(1em)
+
+#figure(
+  image(img-dir + "image13.png", width: 70%),
+  caption: [Equipo utilizado para la medición (fuente de alimentación, voltímetro, amperímetro)],
+)
+
+#v(1em)
+
+#figure(
+  image(img-dir + "image8.png", width: 50%),
+  caption: [Circuito Diodo común o LED],
+)
+
+#v(1em)
+
+#figure(
+  image(img-dir + "image17.png", width: 55%),
+  caption: [Circuito Resistencia o Lámpara],
 )
 
 #pagebreak()
 
-= Introduction
+= Datos obtenidos
 
+== Resistencia de carbón depositado
 
-== Datos
+#set par(first-line-indent: 0em)
 
-=== Resistencias
+Se realizaron 19 mediciones sin un límite de voltaje específico en intervalos de 0,5V aproximadamente. A continuación se presentan los gráficos creados a partir de los datos recolectados.
 
-#align(center)[#table(columns: 2)[Tension][Corriente][0.5V][1.5mA][1.1V][3mA][2V][6mA][2.5V][7.5mA][3V][9mA][3.5V][10.6mA][4V][12.1mA][4.5V][13.7mA][5V][15.2mA][5.5V][16.7mA][6V][18.3mA][6.5V][19.8mA][7V][21.4mA][7.5V][22.9mA][8V][24.4mA][8.5V][26mA][9V][27.5mA][9.5V][29mA][10V][30.6mA]]
+#v(1em)
 
+#figure(
+  image(img-dir + "image16.png", width: 85%),
+  caption: [Curva I-V de la resistencia de carbón depositado con ajuste lineal],
+)
 
-=== Diodo
+#v(0.5em)
 
-#align(center)[#table(columns: 2)[Tension (V)][Corriente (mA)][0.4][0][0.45][0][0.5][0.3][0.55][1][0.6][2][0.65][4.1][0.7][6.3][0.75][8.5][0.8][12.4][0.85][15.5][0.9][19.1][0.95][23.3][1][27.8][1.05][29.4][1.1][33.5][1.15][38][1.2][42.9][1.5][74.5][2][125]]
+La ecuación de la recta es:
 
+$ I = 3,0776 "mA/V" dot V - 0,19 "mA" $
 
-=== Lampara
+Por la ley de Ohm *[1]*, sabemos que la relación que existe entre voltaje, resistencia e intensidad es la siguiente:
 
-#align(center)[#table(columns:2)[Tension (V)][Corriente (mA)][0.5][34][1][41.3][1.5][47.1][2][53.2][2.5][59][3.01][64.9][3.5][70.7][4][75.2][4.5][81][5][85][5.5][90.4][6][94][6.65][100][7][102.5][7.5][107.0][8][110.9][8.5][115][9][118.6][9.4][121.9][10.02][126.233][10.46][129.5][11][133.9][11.6][137.4][12][140.9]]
+$ I / V = 1 / R arrow.double m = 1 / V = 1 / R $
 
+Por lo que, si se reemplaza $m$, se obtiene:
 
-=== Led (rojo)
+$ R = 1 / m approx 325 space Omega $
 
-#align(center)[#table(columns: 2)[Tension (V)][Corriente mA][2.26][29.5][2.23][28.5][2.23][27.6][2.21][26.5][2.2][25.5][2.18][24.5][2.16][23.5][2.15][22.5][2.13][21.5][2.11][20.5][2.1][19.4][2.08][18.5][2.06][17.5][2.05][16.4][2.03][15.5][2.01][14.5][2][13.5][1.98][12.4][1.96][11.4][1.93][10.3][1.92][9.5][1.89][8.4][1.87][7.4][1.84][6.5][1.81][5.4][1.78][4.5][1.71][3.4][1.55][2.5][1.21][1.5][0.69][0.5]]
+#v(0.5em)
+
+#align(center)[
+  #table(
+    columns: 2,
+    align: center,
+    table.header([*Tensión (V)*], [*Corriente (mA)*]),
+    [0.5], [1.5],
+    [1.1], [3],
+    [2], [6],
+    [2.5], [7.5],
+    [3], [9],
+    [3.5], [10.6],
+    [4], [12.1],
+    [4.5], [13.7],
+    [5], [15.2],
+    [5.5], [16.7],
+    [6], [18.3],
+    [6.5], [19.8],
+    [7], [21.4],
+    [7.5], [22.9],
+    [8], [24.4],
+    [8.5], [26],
+    [9], [27.5],
+    [9.5], [29],
+    [10], [30.6],
+  )
+]
 
 #pagebreak()
+
+== Lámpara de filamento
+
+Se realizaron 24 mediciones sin superar el límite de voltaje de 12V. Se fue incrementando aproximadamente en 0,5V.
+
+#v(1em)
+
+#figure(
+  image(img-dir + "image9.png", width: 85%),
+  caption: [Curva I-V de la lámpara de filamento de tungsteno],
+)
+
+#v(0.5em)
+
+#align(center)[
+  #table(
+    columns: 2,
+    align: center,
+    table.header([*Tensión (V)*], [*Corriente (mA)*]),
+    [0.5], [34],
+    [1], [41.3],
+    [1.5], [47.1],
+    [2], [53.2],
+    [2.5], [59],
+    [3.01], [64.9],
+    [3.5], [70.7],
+    [4], [75.2],
+    [4.5], [81],
+    [5], [85],
+    [5.5], [90.4],
+    [6], [94],
+    [6.65], [100],
+    [7], [102.5],
+    [7.5], [107.0],
+    [8], [110.9],
+    [8.5], [115],
+    [9], [118.6],
+    [9.4], [121.9],
+    [10.02], [126.2],
+    [10.46], [129.5],
+    [11], [133.9],
+    [11.6], [137.4],
+    [12], [140.9],
+  )
+]
+
+#pagebreak()
+
+== Diodo de Silicio
+
+Se realizaron 19 mediciones comenzando con un voltaje de 0,4V y aumentando hasta 2V. Se tuvo en cuenta no superar el límite de 125mA para no quemar el fusible del amperímetro. A su vez se consideró la polaridad del diodo al conectar los cables, conectando el ánodo al polo positivo y el cátodo al polo negativo. A continuación se presentan los gráficos realizados.
+
+#v(1em)
+
+#figure(
+  image(img-dir + "image10.png", width: 85%),
+  caption: [Curva I-V del diodo de silicio],
+)
+
+#v(0.5em)
+
+#align(center)[
+  #table(
+    columns: 2,
+    align: center,
+    table.header([*Tensión (V)*], [*Corriente (mA)*]),
+    [0.4], [0],
+    [0.45], [0],
+    [0.5], [0.3],
+    [0.55], [1],
+    [0.6], [2],
+    [0.65], [4.1],
+    [0.7], [6.3],
+    [0.75], [8.5],
+    [0.8], [12.4],
+    [0.85], [15.5],
+    [0.9], [19.1],
+    [0.95], [23.3],
+    [1], [27.8],
+    [1.05], [29.4],
+    [1.1], [33.5],
+    [1.15], [38],
+    [1.2], [42.9],
+    [1.5], [74.5],
+    [2], [125],
+  )
+]
+
+#pagebreak()
+
+== Diodo LED
+
+Se realizaron 30 mediciones en este caso. Se tuvo en cuenta el hecho de que la corriente de circulación debía mantenerse menor a 30 mA. A su vez se agregó una resistencia en serie que limitó la corriente para evitar que se perjudique el diodo producto de posibles variaciones de tensión.
+
+#v(1em)
+
+#figure(
+  image(img-dir + "image12.png", width: 85%),
+  caption: [Curva I-V del diodo LED rojo],
+)
+
+#v(0.5em)
+
+#align(center)[
+  #table(
+    columns: 2,
+    align: center,
+    table.header([*Tensión (V)*], [*Corriente (mA)*]),
+    [2.26], [29.5],
+    [2.23], [28.5],
+    [2.23], [27.6],
+    [2.21], [26.5],
+    [2.2], [25.5],
+    [2.18], [24.5],
+    [2.16], [23.5],
+    [2.15], [22.5],
+    [2.13], [21.5],
+    [2.11], [20.5],
+    [2.1], [19.4],
+    [2.08], [18.5],
+    [2.06], [17.5],
+    [2.05], [16.4],
+    [2.03], [15.5],
+    [2.01], [14.5],
+    [2], [13.5],
+    [1.98], [12.4],
+    [1.96], [11.4],
+    [1.93], [10.3],
+    [1.92], [9.5],
+    [1.89], [8.4],
+    [1.87], [7.4],
+    [1.84], [6.5],
+    [1.81], [5.4],
+    [1.78], [4.5],
+    [1.71], [3.4],
+    [1.55], [2.5],
+    [1.21], [1.5],
+    [0.69], [0.5],
+  )
+]
+
+#pagebreak()
+
+= Análisis de los resultados
+
+== Resistencia de carbón depositado
+
+El gráfico de intensidad de corriente en función de la tensión para la resistencia de carbón depositado evidencia una relación lineal marcada entre ambas magnitudes. A medida que aumenta la tensión aplicada, la corriente también aumenta de manera proporcional, lo que indica un comportamiento acorde con la Ley de Ohm.
+
+El ajuste lineal obtenido presenta una pendiente aproximada de *3,08 mA/V*, mientras que la ordenada al origen resulta cercana a cero. Esto permite afirmar que el modelo lineal describe adecuadamente los datos experimentales y que, en el rango de tensiones analizado, la resistencia se comporta como un *elemento óhmico*.
+
+La pendiente de la recta representa la conductancia del resistor, por lo que su inversa corresponde al valor de la resistencia. A partir de ella, se obtiene un valor aproximado de:
+
+$ R = 1 / m approx 1 / (3,08 "mA/V") approx 0,325 "k" Omega $
+
+Este resultado indica que la resistencia se mantuvo prácticamente constante a lo largo de todas las mediciones realizadas, lo cual refuerza la conclusión de que el componente presenta comportamiento óhmico. Por lo tanto, las mediciones obtenidas fueron consistentes con lo esperado teóricamente para una resistencia de carbón depositado.
+
+#pagebreak()
+
+= Anexo
+
+== Cálculo del error
+
+$ E = (|R_"pendiente" - R_"nominal"|) / R_"nominal" times 100 = (|325 Omega - 330 Omega|) / (330 Omega) times 100 = 1,52% $
+
+#pagebreak()
+
+// =============================================
+// EXTRA: Implementación computacional
+// =============================================
+
+#set par(first-line-indent: 0em)
 
 = Extra: Implementación computacional de los modelos físicos
 
@@ -384,4 +602,4 @@ Para la elaboración de esta sección se consultó a Claude (Anthropic) como her
 
 + JCGM 101:2008, _Evaluation of measurement data -- Supplement 1 to the "Guide to the expression of uncertainty in measurement" -- Propagation of distributions using a Monte Carlo method_. Norma internacional que fundamenta el uso de simulación Monte Carlo para la propagación de incertidumbres cuando los modelos son no lineales.
 
-+ Anthropic, _Claude_ (modelo de lenguaje), 2024--2026. Utilizado como herramienta de asistencia para la implementación del código Python y la redacción de la sección Extra del informe.
++ Anthropic, _Claude_ (modelo de lenguaje), 2024--2026. Utilizado como herramienta de asistencia complementaria para la verificación de modelos físicos.
