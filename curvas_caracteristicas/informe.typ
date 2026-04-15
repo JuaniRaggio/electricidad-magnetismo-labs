@@ -89,7 +89,7 @@
 )
 #show raw.where(block: true): set text(size: 9pt)
 
-#let img-dir = "Tp_ Curvas Características/images/"
+#let img-dir = "assets/"
 
 // =============================================
 // CARATULA (formato obligatorio de la catedra)
@@ -331,7 +331,7 @@ Se realizaron 19 mediciones en intervalos de aproximadamente 0,5 V. Los datos co
 #v(0.5em)
 
 #figure(
-  image(img-dir + "image16.png", width: 80%),
+  image(img-dir + "grafico_resistencia.png", width: 80%),
   caption: [Curva I(V) de la resistencia con ajuste lineal por mínimos cuadrados.],
 ) <fig-resistencia>
 
@@ -352,7 +352,7 @@ Se realizaron 24 mediciones hasta un voltaje máximo de 12 V.
 #v(0.5em)
 
 #figure(
-  image(img-dir + "image9.png", width: 80%),
+  image(img-dir + "grafico_lampara.png", width: 80%),
   caption: [Curva I(V) de la lámpara de filamento de tungsteno.],
 ) <fig-lampara>
 
@@ -365,7 +365,7 @@ Se realizaron 19 mediciones entre 0,4 V y 2 V, sin superar 125 mA para proteger 
 #v(0.5em)
 
 #figure(
-  image(img-dir + "image10.png", width: 80%),
+  image(img-dir + "grafico_diodo.png", width: 80%),
   caption: [Curva I(V) del diodo de silicio.],
 ) <fig-diodo>
 
@@ -376,7 +376,7 @@ Se realizaron 30 mediciones manteniendo la corriente por debajo de 30 mA. Se agr
 #v(0.5em)
 
 #figure(
-  image(img-dir + "image12.png", width: 80%),
+  image(img-dir + "grafico_led.png", width: 80%),
   caption: [Curva I(V) del diodo LED rojo.],
 ) <fig-led>
 
