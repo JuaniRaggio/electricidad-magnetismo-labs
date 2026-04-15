@@ -1,18 +1,34 @@
 #set document(
-  title: "TP 1 - Curvas Características - Física III",
-  author: ("Juan Ignacio Raggio", "Catalina Moralejo", "María Milagros Pipet", "Mora Olivero", "Julieta Abramzon"),
+  title: "Curvas Características I(V) de Elementos de Dos Terminales",
+  author: ("Raggio, J. I.", "Moralejo, C.", "Pipet, M. M.", "Olivero, M.", "Abramzon, J."),
 )
+
+// =============================================
+// CONFIGURACION GLOBAL
+// =============================================
 
 #set page(
   paper: "a4",
   margin: (top: 2.5cm, bottom: 2.5cm, left: 2cm, right: 2cm),
   numbering: "1",
-  number-align: bottom + right,
+  number-align: bottom + center,
+  header: context {
+    if counter(page).get().first() > 1 [
+      #set text(size: 8pt, fill: gray)
+      #grid(
+        columns: (1fr, 1fr),
+        align: (left, right),
+        [_Curvas Características -- Física III_],
+        [_Raggio, Moralejo, Pipet, Olivero, Abramzon_],
+      )
+      #line(length: 100%, stroke: 0.4pt + gray)
+    ]
+  },
 )
 
 #set text(
-  font: "Times New Roman",
-  size: 12pt,
+  font: "New Computer Modern",
+  size: 11pt,
   lang: "es",
   hyphenate: true,
 )
@@ -20,27 +36,57 @@
 #set par(
   justify: true,
   leading: 0.65em,
-  first-line-indent: 2em,
-  spacing: 1.2em,
+  first-line-indent: 1.5em,
+  spacing: 1em,
 )
 
-#set heading(numbering: "1.1")
-#show heading.where(level: 1): set text(size: 15pt, weight: "bold")
-#show heading.where(level: 2): set text(size: 13pt, weight: "bold")
-
-#show heading: it => {
+#set heading(numbering: "1.1.")
+#show heading.where(level: 1): it => {
+  set text(size: 13pt, weight: "bold")
   set par(first-line-indent: 0em)
-  v(0.5em)
+  v(1em)
+  block(width: 100%)[
+    #upper(it)
+  ]
+  v(0.4em)
+}
+#show heading.where(level: 2): it => {
+  set text(size: 11pt, weight: "bold")
+  set par(first-line-indent: 0em)
+  v(0.8em)
   it
   v(0.3em)
 }
+#show heading.where(level: 3): it => {
+  set text(size: 11pt, weight: "bold", style: "italic")
+  set par(first-line-indent: 0em)
+  v(0.6em)
+  it
+  v(0.2em)
+}
 
+// Estilo de tablas: lineas horizontales tipo booktabs
+#set table(
+  stroke: none,
+  inset: 6pt,
+  align: center,
+)
+#show table: set text(size: 10pt)
+
+// Estilo de figuras
+#show figure.caption: it => {
+  set text(size: 9.5pt)
+  it
+}
+
+// Codigo
 #show raw.where(block: true): block.with(
-  fill: luma(240),
-  inset: 10pt,
-  radius: 4pt,
+  fill: luma(245),
+  inset: 8pt,
+  radius: 3pt,
   width: 100%,
 )
+#show raw.where(block: true): set text(size: 9pt)
 
 #let img-dir = "Tp_ Curvas Características/images/"
 
@@ -48,60 +94,63 @@
 // CARATULA (formato obligatorio de la catedra)
 // =============================================
 
+#set page(numbering: none, header: none)
+
 #set par(first-line-indent: 0em)
+
+#v(1em)
 
 #align(center)[
   #text(size: 13pt)[TRABAJO PRACTICO N° 1]
+  #v(0.3em)
+  #text(size: 18pt, weight: "bold")[Curvas Características]
+]
+
+#v(2em)
+
+#text(size: 12pt)[
+  GRUPO N° 5
+
   #v(0.5em)
-  #text(size: 18.5pt)[Curvas Características]
+
+  Integrantes del grupo:
+
+  #v(0.3em)
+
+  #pad(left: 1em)[
+    63319 #h(0.5em) Raggio, Juan Ignacio \
+    64695 #h(0.5em) Moralejo, Catalina \
+    65104 #h(0.5em) Pipet, María Milagros \
+    65386 #h(0.5em) Olivero, Mora \
+    65675 #h(0.5em) Abramzon, Julieta
+  ]
+
+  #v(1.5em)
+
+  Fecha de realización del trabajo práctico: 8/4/2026
+
+  Fecha de entrega del informe: 15/4/2026
+
+  #v(1em)
+
+  #block(
+    stroke: 1pt + black,
+    inset: 10pt,
+    width: 100%,
+  )[
+    Observaciones: #repeat[.]
+    #v(1em)
+    #repeat[.]
+  ]
+
+  #v(1em)
+
+  Fecha de aprobación: #h(1fr) #line(length: 30%, stroke: 0.5pt + black)
+
+  #v(0.5em)
+
+  Firma del docente: #h(1fr) #line(length: 30%, stroke: 0.5pt + black)
 ]
-
-#v(2em)
-
-GRUPO N° 5
-
-#v(0.5em)
-
-Integrantes del grupo:
-
-#v(0.5em)
-
-63319 Raggio, Juan Ignacio
-
-64695 Moralejo, Catalina
-
-65104 Pipet, María Milagros
-
-65386 Olivero, Mora
-
-65675 Abramzon, Julieta
-
-#v(2em)
-
-Fecha de realización del trabajo práctico: 8/4/2026
-
-Fecha de entrega del informe: 15/4/2026
-
-#v(1em)
-
-#block(
-  stroke: 1pt + black,
-  inset: 10pt,
-  width: 100%,
-)[
-  Observaciones:
-  #repeat[.]
-  #repeat[.]
-  #repeat[.]
-]
-
-#v(1em)
-
-Fecha de aprobación:
-
-#v(1em)
-
-Firma del docente:
 
 #pagebreak()
 
@@ -109,164 +158,231 @@ Firma del docente:
 // CONTENIDO
 // =============================================
 
-#set par(first-line-indent: 2em)
-
-= Objetivos y Resumen
-
-El objetivo de esta práctica es determinar las curvas características I(V) de distintos elementos de dos terminales, con el fin de analizar si tienen comportamiento óhmico o no, a partir de la observación de su linealidad.
-
-Para esto se utilizó una resistencia de carbón depositado, una lámpara de filamento de tungsteno, diodos semiconductores de silicio y diodos semiconductores LED. En cada caso lo que se hizo fue ir variando la tensión de la fuente con suma precaución de no sobrepasar los valores máximos permitidos, registrándose así distintos valores de corriente.
-
-Las mediciones de corriente y diferencia de potencial se realizaron con un amperímetro y un voltímetro respectivamente. A partir de los datos obtenidos se realizaron gráficos para cada uno de los elementos analizados.
-
-= Introducción teórica
-
-En los circuitos eléctricos el comportamiento de los distintos componentes puede analizarse mediante la relación entre la corriente eléctrica que circula por ellos y la diferencia de potencial entre sus terminales. La diferencia de potencial representa la energía por unidad de carga necesaria para mover dichas cargas entre dos puntos, y se mide en volts (V).
-
-Mientras que la corriente describe la rapidez de flujo de carga a través de un material conductor y se mide en amperes (A) equivalente a Coulomb por segundo. La corriente promedio se obtiene dividiendo la cantidad de carga que pasa por un punto entre el intervalo de tiempo considerado. Cuando la corriente varía con el tiempo, se define la corriente instantánea como la variación de carga respecto del tiempo.
-
-Todo material presenta cierta oposición al paso de la corriente eléctrica. A esta propiedad se le denomina resistencia eléctrica, la cual se mide en ohmios ($Omega$) y depende tanto de la resistividad del material como de la geometría del conductor.
-
-Un material óhmico se define como aquel cuya densidad de corriente es proporcional al campo eléctrico. Este exhibe una relación lineal entre el voltaje y la corriente. En estos materiales la resistencia es constante y se define como el cociente entre la diferencia de potencial y la corriente.
-
-#set par(first-line-indent: 0em)
-$ R equiv (Delta V) / I #h(4em) [1] $
-#set par(first-line-indent: 2em)
-
-Para poder determinar si un material es óhmico se trazan las curvas características según la función:
-
-#set par(first-line-indent: 0em)
-$ I = f(V) #h(4em) [2] $
-#set par(first-line-indent: 2em)
-
-Si la correspondencia entre la corriente y el voltaje es lineal se dice que el material es óhmico. En este caso la pendiente representa la inversa de la resistencia eléctrica del material. Aquellos materiales o dispositivos donde la resistencia cambia con el voltaje o la dirección de la corriente se denominan no óhmicos.
-
-Independientemente del tipo de material, el paso de la corriente a través de un conductor produce una disipación de calor conocida como efecto Joule. Esta transformación de energía eléctrica en térmica es directamente proporcional a la resistencia del material, al tiempo de circulación y al cuadrado de la intensidad de la corriente.
-
-#set par(first-line-indent: 0em)
-$ Q = I^2 dot R dot t #h(4em) [3] $
-#set par(first-line-indent: 2em)
-
-= Instrumentos y elementos empleados
-
-Para la realización de este trabajo se utilizó una fuente de alimentación de corriente continua, cables de conexión, un voltímetro dispuesto en paralelo y un amperímetro dispuesto en serie.
-
-Se emplearon además distintos elementos del circuito: una resistencia de carbón depositado, una lámpara de filamento de tungsteno, un diodo de silicio y un diodo LED.
-
-La resistencia (220 $Omega$) es un componente pasivo lineal en el cual la tensión es proporcional a la corriente que circula, cumpliendo la ley de Ohm.
-
-La lámpara de filamento produce luz por incandescencia al elevarse la temperatura del filamento de tungsteno debido al paso de corriente, presentando un comportamiento no lineal.
-
-El diodo de silicio es un dispositivo semiconductor que permite la circulación de corriente en un solo sentido, mientras que el diodo LED, además de esta propiedad, emite luz cuando es atravesado por corriente eléctrica.
-
-Estos elementos permiten analizar tanto comportamientos óhmicos como no óhmicos a partir de la relación entre la corriente y la tensión aplicada.
-
-#v(1em)
-
-#figure(
-  image(img-dir + "image13.png", width: 70%),
-  caption: [Equipo utilizado para la medición (fuente de alimentación, voltímetro, amperímetro)],
+#set page(
+  numbering: "1",
+  header: context {
+    if counter(page).get().first() > 1 [
+      #set text(size: 8pt, fill: gray)
+      #grid(
+        columns: (1fr, 1fr),
+        align: (left, right),
+        [_Curvas Características -- Física III_],
+        [_Raggio, Moralejo, Pipet, Olivero, Abramzon_],
+      )
+      #line(length: 100%, stroke: 0.4pt + gray)
+    ]
+  },
 )
+#counter(page).update(1)
 
-#v(1em)
+// =============================================
+// TITULO Y AUTORES (estilo paper)
+// =============================================
 
-#figure(
-  image(img-dir + "image8.png", width: 50%),
-  caption: [Circuito Diodo común o LED],
-)
+#align(center)[
+  #text(size: 16pt, weight: "bold")[
+    Curvas Características I(V) de Elementos \
+    de Dos Terminales
+  ]
 
-#v(1em)
+  #v(0.8em)
 
-#figure(
-  image(img-dir + "image17.png", width: 55%),
-  caption: [Circuito Resistencia o Lámpara],
-)
+  #text(size: 10pt)[
+    J. I. Raggio#super[1], C. Moralejo#super[1], M. M. Pipet#super[1], M. Olivero#super[1], J. Abramzon#super[1]
+  ]
 
-#pagebreak()
+  #v(0.3em)
 
-= Datos obtenidos
+  #text(size: 9pt, fill: gray)[
+    #super[1] Instituto Tecnológico de Buenos Aires (ITBA) -- Física III \
+    Comisión B -- Laboratorio: Miércoles 10:00 \
+    8 de abril de 2026
+  ]
+]
 
-== Resistencia de carbón depositado
+#v(0.5em)
+#line(length: 100%, stroke: 0.5pt)
+#v(0.3em)
 
-#set par(first-line-indent: 0em)
+// Abstract
+#par(first-line-indent: 0em)[
+  #text(weight: "bold", size: 10pt)[Resumen --]
+  #text(size: 10pt)[
+    Se determinaron las curvas características I(V) de una resistencia de carbón depositado, una lámpara de filamento de tungsteno, un diodo semiconductor de silicio y un diodo LED rojo. A partir de los datos experimentales se analizó la linealidad de cada componente. La resistencia presentó comportamiento óhmico con $R = 325 space Omega$ ($R^2 = 0,"9999"$), mientras que la lámpara, el diodo y el LED exhibieron comportamientos marcadamente no lineales, consistentes con sus respectivos modelos físicos.
+  ]
+]
 
-Se realizaron 19 mediciones sin un límite de voltaje específico en intervalos de 0,5V aproximadamente. A continuación se presentan los gráficos creados a partir de los datos recolectados.
+#v(0.3em)
+#line(length: 100%, stroke: 0.5pt)
+#v(0.5em)
 
-#v(1em)
+// =============================================
+// 1. OBJETIVOS
+// =============================================
 
-#figure(
-  image(img-dir + "image16.png", width: 85%),
-  caption: [Curva I-V de la resistencia de carbón depositado con ajuste lineal],
-)
+= Objetivos
+
+#par(first-line-indent: 0em)[
+  Determinar las curvas características $I(V)$ de distintos elementos de dos terminales y analizar su linealidad. Los elementos analizados son: (a) resistencia de carbón depositado, (b) lámpara de filamento de tungsteno, (c) diodo semiconductor de silicio y (d) diodo semiconductor LED.
+]
+
+// =============================================
+// 2. MARCO TEORICO
+// =============================================
+
+= Marco teórico
+
+La resistencia eléctrica de un componente de dos terminales se define como el cociente entre la diferencia de potencial aplicada y la corriente que circula:
+
+$ R equiv (Delta V) / I #h(6em) (1) $
+
+Un material se denomina _óhmico_ cuando la relación entre corriente y tensión es lineal, es decir, cuando la resistencia $R$ es constante. Para clasificar un componente se traza su _curva característica_:
+
+$ I = f(V) #h(6em) (2) $
+
+Si $I(V)$ es una recta que pasa por el origen, el componente es óhmico y la pendiente $m = 1\/R$ permite determinar su resistencia. Los componentes donde $R$ varía con la tensión o la dirección de la corriente se denominan _no óhmicos_.
+
+El paso de corriente a través de cualquier conductor produce disipación de energía térmica por efecto Joule:
+
+$ Q = I^2 dot R dot t #h(6em) (3) $
+
+Este efecto es particularmente relevante en la lámpara de filamento, donde la potencia disipada eleva la temperatura del tungsteno, modificando su resistividad y generando el comportamiento no lineal observado.
+
+// =============================================
+// 3. DISPOSITIVO EXPERIMENTAL
+// =============================================
+
+= Dispositivo experimental
+
+Se utilizó una fuente de alimentación de corriente continua, un voltímetro digital dispuesto en paralelo y un amperímetro digital dispuesto en serie. Los componentes analizados fueron: una resistencia de carbón depositado (valor nominal 220 $Omega$), una lámpara de filamento de tungsteno, un diodo de silicio y un diodo LED rojo.
 
 #v(0.5em)
 
-La ecuación de la recta es:
-
-$ I = 3,0776 "mA/V" dot V - 0,19 "mA" $
-
-Por la ley de Ohm *[1]*, sabemos que la relación que existe entre voltaje, resistencia e intensidad es la siguiente:
-
-$ I / V = 1 / R arrow.double m = 1 / V = 1 / R $
-
-Por lo que, si se reemplaza $m$, se obtiene:
-
-$ R = 1 / m approx 325 space Omega $
-
-#pagebreak()
-
-== Lámpara de filamento
-
-Se realizaron 24 mediciones sin superar el límite de voltaje de 12V. Se fue incrementando aproximadamente en 0,5V.
-
-#v(1em)
-
 #figure(
-  image(img-dir + "image9.png", width: 85%),
-  caption: [Curva I-V de la lámpara de filamento de tungsteno],
+  image(img-dir + "image13.png", width: 60%),
+  caption: [Montaje experimental: fuente de alimentación, voltímetro y amperímetro.],
+) <fig-montaje>
+
+#v(0.5em)
+
+#grid(
+  columns: (1fr, 1fr),
+  gutter: 1em,
+  figure(
+    image(img-dir + "image17.png", width: 90%),
+    caption: [Circuito para resistencia y lámpara.],
+  ),
+  figure(
+    image(img-dir + "image8.png", width: 85%),
+    caption: [Circuito para diodo y LED.],
+  ),
 )
 
-#pagebreak()
+En cada caso se varió la tensión de la fuente registrando los valores de corriente correspondientes, sin sobrepasar los límites máximos de cada componente.
 
-== Diodo de Silicio
+// =============================================
+// 4. RESULTADOS
+// =============================================
 
-Se realizaron 19 mediciones comenzando con un voltaje de 0,4V y aumentando hasta 2V. Se tuvo en cuenta no superar el límite de 125mA para no quemar el fusible del amperímetro. A su vez se consideró la polaridad del diodo al conectar los cables, conectando el ánodo al polo positivo y el cátodo al polo negativo. A continuación se presentan los gráficos realizados.
-
-#v(1em)
-
-#figure(
-  image(img-dir + "image10.png", width: 85%),
-  caption: [Curva I-V del diodo de silicio],
-)
-
-#pagebreak()
-
-== Diodo LED
-
-Se realizaron 30 mediciones en este caso. Se tuvo en cuenta el hecho de que la corriente de circulación debía mantenerse menor a 30 mA. A su vez se agregó una resistencia en serie que limitó la corriente para evitar que se perjudique el diodo producto de posibles variaciones de tensión.
-
-#v(1em)
-
-#figure(
-  image(img-dir + "image12.png", width: 85%),
-  caption: [Curva I-V del diodo LED rojo],
-)
-
-#pagebreak()
-
-= Análisis de los resultados
+= Resultados experimentales
 
 == Resistencia de carbón depositado
 
-El gráfico de intensidad de corriente en función de la tensión para la resistencia de carbón depositado evidencia una relación lineal marcada entre ambas magnitudes. A medida que aumenta la tensión aplicada, la corriente también aumenta de manera proporcional, lo que indica un comportamiento acorde con la Ley de Ohm.
+Se realizaron 19 mediciones en intervalos de aproximadamente 0,5 V. Los datos completos se encuentran en el Anexo (Sección 7.2).
 
-El ajuste lineal obtenido presenta una pendiente aproximada de *3,08 mA/V*, mientras que la ordenada al origen resulta cercana a cero. Esto permite afirmar que el modelo lineal describe adecuadamente los datos experimentales y que, en el rango de tensiones analizado, la resistencia se comporta como un *elemento óhmico*.
+#v(0.5em)
 
-La pendiente de la recta representa la conductancia del resistor, por lo que su inversa corresponde al valor de la resistencia. A partir de ella, se obtiene un valor aproximado de:
+#figure(
+  image(img-dir + "image16.png", width: 80%),
+  caption: [Curva I(V) de la resistencia con ajuste lineal por mínimos cuadrados.],
+) <fig-resistencia>
 
-$ R = 1 / m approx 1 / (3,08 "mA/V") approx 0,325 "k" Omega $
+La ecuación del ajuste lineal obtenido es:
 
-Este resultado indica que la resistencia se mantuvo prácticamente constante a lo largo de todas las mediciones realizadas, lo cual refuerza la conclusión de que el componente presenta comportamiento óhmico. Por lo tanto, las mediciones obtenidas fueron consistentes con lo esperado teóricamente para una resistencia de carbón depositado.
+$ I = 3","0776 space "mA/V" dot V - 0","19 space "mA" $
+
+Dado que $I\/V = 1\/R = m$, la resistencia experimental resulta:
+
+$ R = 1 / m = 1 / (3","0776 space "mA/V") approx 325 space Omega $
+
+El coeficiente de determinación $R^2 = 0","9999$ confirma la excelente calidad del ajuste lineal.
+
+== Lámpara de filamento de tungsteno
+
+Se realizaron 24 mediciones hasta un voltaje máximo de 12 V.
+
+#v(0.5em)
+
+#figure(
+  image(img-dir + "image9.png", width: 80%),
+  caption: [Curva I(V) de la lámpara de filamento de tungsteno.],
+) <fig-lampara>
+
+#pagebreak()
+
+== Diodo de silicio
+
+Se realizaron 19 mediciones entre 0,4 V y 2 V, sin superar 125 mA para proteger el fusible del amperímetro. Se conectó el ánodo al polo positivo y el cátodo al polo negativo.
+
+#v(0.5em)
+
+#figure(
+  image(img-dir + "image10.png", width: 80%),
+  caption: [Curva I(V) del diodo de silicio.],
+) <fig-diodo>
+
+== Diodo LED (rojo)
+
+Se realizaron 30 mediciones manteniendo la corriente por debajo de 30 mA. Se agregó una resistencia en serie para limitar la corriente y proteger el dispositivo.
+
+#v(0.5em)
+
+#figure(
+  image(img-dir + "image12.png", width: 80%),
+  caption: [Curva I(V) del diodo LED rojo.],
+) <fig-led>
+
+// =============================================
+// 5. ANALISIS Y DISCUSION
+// =============================================
+
+= Análisis y discusión
+
+== Resistencia
+
+El gráfico de la @fig-resistencia evidencia una relación lineal entre corriente y tensión, consistente con la ley de Ohm. La pendiente $m = 3","0776$ mA/V corresponde a una resistencia de $R approx 325 space Omega$, y la ordenada al origen $b = -0","19$ mA es despreciable frente al rango de medición (0--30,6 mA), confirmando que la recta pasa por el origen dentro de la incertidumbre experimental.
+
+El valor obtenido es consistente con una resistencia comercial de $330 space Omega$ (tolerancia $plus.minus 5%$). El error porcentual respecto al valor nominal es:
+
+$ E = (|R_"exp" - R_"nom"|) / R_"nom" times 100 = (|325 - 330|) / 330 times 100 = 1","52 % $
+
+Este error se encuentra dentro de la tolerancia del componente, lo que valida tanto el método de medición como el ajuste realizado.
+
+== Lámpara de filamento
+
+La curva I(V) de la @fig-lampara muestra un comportamiento claramente no lineal: la corriente crece con la tensión pero con pendiente decreciente. Esto se debe a que, al aumentar la potencia disipada, la temperatura del filamento de tungsteno se eleva, incrementando su resistividad. La resistencia del filamento no es constante sino que depende de la tensión aplicada, lo que clasifica a la lámpara como un componente _no óhmico_.
+
+== Diodo de silicio
+
+La @fig-diodo exhibe la curva exponencial típica de un diodo semiconductor. Por debajo de aproximadamente 0,5 V la corriente es prácticamente nula (zona de corte), y a partir de esa tensión umbral la corriente crece de forma exponencial. Este comportamiento es marcadamente no lineal y está gobernado por la ecuación de Shockley del diodo.
+
+== Diodo LED
+
+La @fig-led presenta un comportamiento similar al diodo de silicio, con una tensión umbral más elevada (aproximadamente 1,7--1,8 V), a partir de la cual la corriente comienza a crecer. Esta tensión umbral está directamente relacionada con la energía del gap del semiconductor, que a su vez determina la longitud de onda de la luz emitida. El LED utilizado, de color rojo, es consistente con una tensión umbral en este rango.
+
+// =============================================
+// 6. CONCLUSIONES
+// =============================================
+
+= Conclusiones
+
+#par(first-line-indent: 0em)[
+  Se determinaron satisfactoriamente las curvas características I(V) de los cuatro componentes. La resistencia de carbón depositado presentó comportamiento óhmico ($R^2 = 0","9999$), con un valor experimental de $325 space Omega$ que difiere en solo un 1,52% del valor nominal de $330 space Omega$. La lámpara de filamento, el diodo de silicio y el diodo LED presentaron comportamientos no lineales, cada uno con características distintivas: crecimiento sublineal en la lámpara (por dependencia térmica de la resistividad), crecimiento exponencial en el diodo (ecuación de Shockley) y crecimiento exponencial con tensión umbral elevada en el LED (relacionada con el gap del semiconductor).
+]
+
+// =============================================
+// 7. ANEXO
+// =============================================
 
 #pagebreak()
 
@@ -274,155 +390,169 @@ Este resultado indica que la resistencia se mantuvo prácticamente constante a l
 
 == Cálculo del error
 
-$ E = (|R_"pendiente" - R_"nominal"|) / R_"nominal" times 100 = (|325 Omega - 330 Omega|) / (330 Omega) times 100 = 1,52% $
+El error porcentual entre el valor experimental y el nominal se calcula como:
 
-#pagebreak()
+$ E = (|R_"exp" - R_"nom"|) / R_"nom" times 100 $
 
-== Tablas de datos
+Para la resistencia:
 
-=== Resistencia de carbón depositado
+$ E = (|325 space Omega - 330 space Omega|) / (330 space Omega) times 100 = 1","52 % $
 
-#align(center)[
-  #table(
+== Tablas de datos experimentales
+
+#figure(
+  table(
     columns: 2,
-    align: center,
-    table.header([*Tensión (V)*], [*Corriente (mA)*]),
+    table.hline(stroke: 1.5pt),
+    table.header([*V (V)*], [*I (mA)*]),
+    table.hline(stroke: 0.75pt),
     [0.5], [1.5],
-    [1.1], [3],
-    [2], [6],
+    [1.1], [3.0],
+    [2.0], [6.0],
     [2.5], [7.5],
-    [3], [9],
+    [3.0], [9.0],
     [3.5], [10.6],
-    [4], [12.1],
+    [4.0], [12.1],
     [4.5], [13.7],
-    [5], [15.2],
+    [5.0], [15.2],
     [5.5], [16.7],
-    [6], [18.3],
+    [6.0], [18.3],
     [6.5], [19.8],
-    [7], [21.4],
+    [7.0], [21.4],
     [7.5], [22.9],
-    [8], [24.4],
-    [8.5], [26],
-    [9], [27.5],
-    [9.5], [29],
-    [10], [30.6],
-  )
-]
+    [8.0], [24.4],
+    [8.5], [26.0],
+    [9.0], [27.5],
+    [9.5], [29.0],
+    [10.0], [30.6],
+    table.hline(stroke: 1.5pt),
+  ),
+  caption: [Datos experimentales de la resistencia de carbón depositado.],
+)
 
-=== Lámpara de filamento
+#v(1em)
 
-#align(center)[
-  #table(
+#figure(
+  table(
     columns: 2,
-    align: center,
-    table.header([*Tensión (V)*], [*Corriente (mA)*]),
-    [0.5], [34],
-    [1], [41.3],
+    table.hline(stroke: 1.5pt),
+    table.header([*V (V)*], [*I (mA)*]),
+    table.hline(stroke: 0.75pt),
+    [0.5], [34.0],
+    [1.0], [41.3],
     [1.5], [47.1],
-    [2], [53.2],
-    [2.5], [59],
+    [2.0], [53.2],
+    [2.5], [59.0],
     [3.01], [64.9],
     [3.5], [70.7],
-    [4], [75.2],
-    [4.5], [81],
-    [5], [85],
+    [4.0], [75.2],
+    [4.5], [81.0],
+    [5.0], [85.0],
     [5.5], [90.4],
-    [6], [94],
-    [6.65], [100],
-    [7], [102.5],
+    [6.0], [94.0],
+    [6.65], [100.0],
+    [7.0], [102.5],
     [7.5], [107.0],
-    [8], [110.9],
-    [8.5], [115],
-    [9], [118.6],
+    [8.0], [110.9],
+    [8.5], [115.0],
+    [9.0], [118.6],
     [9.4], [121.9],
     [10.02], [126.2],
     [10.46], [129.5],
-    [11], [133.9],
+    [11.0], [133.9],
     [11.6], [137.4],
-    [12], [140.9],
-  )
-]
-
-=== Diodo de Silicio
-
-#align(center)[
-  #table(
-    columns: 2,
-    align: center,
-    table.header([*Tensión (V)*], [*Corriente (mA)*]),
-    [0.4], [0],
-    [0.45], [0],
-    [0.5], [0.3],
-    [0.55], [1],
-    [0.6], [2],
-    [0.65], [4.1],
-    [0.7], [6.3],
-    [0.75], [8.5],
-    [0.8], [12.4],
-    [0.85], [15.5],
-    [0.9], [19.1],
-    [0.95], [23.3],
-    [1], [27.8],
-    [1.05], [29.4],
-    [1.1], [33.5],
-    [1.15], [38],
-    [1.2], [42.9],
-    [1.5], [74.5],
-    [2], [125],
-  )
-]
-
-=== Diodo LED (rojo)
-
-#align(center)[
-  #table(
-    columns: 2,
-    align: center,
-    table.header([*Tensión (V)*], [*Corriente (mA)*]),
-    [2.26], [29.5],
-    [2.23], [28.5],
-    [2.23], [27.6],
-    [2.21], [26.5],
-    [2.2], [25.5],
-    [2.18], [24.5],
-    [2.16], [23.5],
-    [2.15], [22.5],
-    [2.13], [21.5],
-    [2.11], [20.5],
-    [2.1], [19.4],
-    [2.08], [18.5],
-    [2.06], [17.5],
-    [2.05], [16.4],
-    [2.03], [15.5],
-    [2.01], [14.5],
-    [2], [13.5],
-    [1.98], [12.4],
-    [1.96], [11.4],
-    [1.93], [10.3],
-    [1.92], [9.5],
-    [1.89], [8.4],
-    [1.87], [7.4],
-    [1.84], [6.5],
-    [1.81], [5.4],
-    [1.78], [4.5],
-    [1.71], [3.4],
-    [1.55], [2.5],
-    [1.21], [1.5],
-    [0.69], [0.5],
-  )
-]
+    [12.0], [140.9],
+    table.hline(stroke: 1.5pt),
+  ),
+  caption: [Datos experimentales de la lámpara de filamento de tungsteno.],
+)
 
 #pagebreak()
 
+#figure(
+  table(
+    columns: 2,
+    table.hline(stroke: 1.5pt),
+    table.header([*V (V)*], [*I (mA)*]),
+    table.hline(stroke: 0.75pt),
+    [0.40], [0],
+    [0.45], [0],
+    [0.50], [0.3],
+    [0.55], [1.0],
+    [0.60], [2.0],
+    [0.65], [4.1],
+    [0.70], [6.3],
+    [0.75], [8.5],
+    [0.80], [12.4],
+    [0.85], [15.5],
+    [0.90], [19.1],
+    [0.95], [23.3],
+    [1.00], [27.8],
+    [1.05], [29.4],
+    [1.10], [33.5],
+    [1.15], [38.0],
+    [1.20], [42.9],
+    [1.50], [74.5],
+    [2.00], [125.0],
+    table.hline(stroke: 1.5pt),
+  ),
+  caption: [Datos experimentales del diodo de silicio.],
+)
+
+#v(1em)
+
+#figure(
+  table(
+    columns: 2,
+    table.hline(stroke: 1.5pt),
+    table.header([*V (V)*], [*I (mA)*]),
+    table.hline(stroke: 0.75pt),
+    [0.69], [0.5],
+    [1.21], [1.5],
+    [1.55], [2.5],
+    [1.71], [3.4],
+    [1.78], [4.5],
+    [1.81], [5.4],
+    [1.84], [6.5],
+    [1.87], [7.4],
+    [1.89], [8.4],
+    [1.92], [9.5],
+    [1.93], [10.3],
+    [1.96], [11.4],
+    [1.98], [12.4],
+    [2.00], [13.5],
+    [2.01], [14.5],
+    [2.03], [15.5],
+    [2.05], [16.4],
+    [2.06], [17.5],
+    [2.08], [18.5],
+    [2.10], [19.4],
+    [2.11], [20.5],
+    [2.13], [21.5],
+    [2.15], [22.5],
+    [2.16], [23.5],
+    [2.18], [24.5],
+    [2.20], [25.5],
+    [2.21], [26.5],
+    [2.23], [27.6],
+    [2.23], [28.5],
+    [2.26], [29.5],
+    table.hline(stroke: 1.5pt),
+  ),
+  caption: [Datos experimentales del diodo LED rojo (ordenados por tensión creciente).],
+)
+
 // =============================================
-// EXTRA: Implementación computacional
+// 8. EXTRA
 // =============================================
+
+#pagebreak()
 
 #set par(first-line-indent: 0em)
 
 = Extra: Implementación computacional de los modelos físicos
 
-En esta sección se presentan los fragmentos centrales del código Python desarrollado para el análisis de las curvas características. Se busca mostrar cómo los modelos físicos estudiados en la materia se traducen a implementaciones computacionales, y qué conclusiones pueden extraerse de cada uno.
+En esta sección se presentan los fragmentos centrales del código Python desarrollado para el análisis de las curvas características. Se busca mostrar cómo los modelos físicos estudiados se traducen a implementaciones computacionales, y qué conclusiones pueden extraerse de cada uno.
 
 == Modelos físicos implementados
 
@@ -434,7 +564,7 @@ def modelo_resistencia(V, R):
     return V / R
 ```
 
-Este modelo es el más directo: la relación $I = V / R$ predice una curva lineal. Al ajustarlo a los datos experimentales, el único parámetro libre es $R$. El hecho de que el ajuste lineal tenga un coeficiente $R^2 approx 1$ confirma el comportamiento óhmico del componente y permite extraer la resistencia con su incertidumbre.
+Este modelo es el más directo: la relación $I = V / R$ predice una curva lineal. Al ajustarlo a los datos experimentales, el único parámetro libre es $R$. El coeficiente $R^2 approx 1$ confirma el comportamiento óhmico del componente y permite extraer la resistencia con su incertidumbre.
 
 === Ecuación de Shockley con resistencia serie (diodo y LED)
 
@@ -451,14 +581,12 @@ def modelo_diodo(V, I_s, n, R_s):
     return nVt / R_s * W
 ```
 
-La ecuación de Shockley ideal $I = I_s (e^(V \/ n V_T) - 1)$ no contempla la resistencia serie $R_s$ del dispositivo, que produce una caída de tensión adicional $V_"diodo" = V - I R_s$. Esta dependencia implícita de $I$ en ambos lados de la ecuación se resuelve analíticamente mediante la función $W$ de Lambert, que satisface $W(z) e^(W(z)) = z$.
+La ecuación de Shockley ideal $I = I_s (e^(V \/ n V_T) - 1)$ no contempla la resistencia serie $R_s$ del dispositivo, que produce una caída de tensión adicional $V_"diodo" = V - I R_s$. Esta dependencia implícita se resuelve analíticamente mediante la función $W$ de Lambert, que satisface $W(z) e^(W(z)) = z$.
 
 Los tres parámetros ajustados revelan:
 - $I_s$ (corriente de saturación inversa): del orden de $10^(-10)$ A para el diodo de silicio, refleja la concentración de portadores minoritarios.
 - $n$ (factor de idealidad): valores cercanos a 2 indican que la recombinación en la zona de deplexión domina sobre la difusión ($n = 1$).
 - $R_s$ (resistencia serie): modela las resistencias de contacto y del material semiconductor fuera de la juntura.
-
-El uso de `np.clip` previene desbordamientos numéricos en la exponencial, un detalle necesario cuando se trabaja con rangos amplios de tensión.
 
 === Modelo potencial para la lámpara
 
@@ -468,7 +596,7 @@ def modelo_lampara_potencial(V, a, b):
     return a * np.power(np.abs(V), b)
 ```
 
-La lámpara incandescente presenta una relación $I = a V^b$ con $b < 1$, lo que refleja que la resistencia aumenta con la tensión. Físicamente, esto ocurre porque el filamento de tungsteno incrementa su temperatura al recibir más potencia, y la resistividad de los metales crece con la temperatura. El exponente $b$ está relacionado con la dependencia $R(T)$ del tungsteno: si $R prop T^alpha$, entonces $b = 1/(1 + alpha)$. Para tungsteno, $alpha approx 1.2$, lo que predice $b approx 0.45$, consistente con los valores obtenidos experimentalmente.
+La lámpara incandescente presenta una relación $I = a V^b$ con $b < 1$, lo que refleja que la resistencia aumenta con la tensión. El exponente $b$ está relacionado con la dependencia $R(T)$ del tungsteno: si $R prop T^alpha$, entonces $b = 1/(1 + alpha)$. Para tungsteno, $alpha approx 1","2$, lo que predice $b approx 0","45$, consistente con los valores obtenidos experimentalmente.
 
 == Cálculo de resistencia dinámica
 
@@ -484,12 +612,12 @@ def resistencia_dinamica(V, I, window=5, polyorder=2):
     return np.abs(r_din)
 ```
 
-La resistencia dinámica $r = d V \/ d I$ evaluada punto a punto constituye una "huella digital" de cada componente:
-- *Resistencia óhmica:* $r$ es constante en todo el rango de operación.
-- *Diodo y LED:* $r$ decrece exponencialmente con $V$, ya que $d I \/ d V$ crece exponencialmente en la zona de conducción directa.
-- *Lámpara:* $r$ crece con $V$, reflejando el aumento de temperatura del filamento.
+La resistencia dinámica $r = d V \/ d I$ evaluada punto a punto constituye una huella digital de cada componente:
+- _Resistencia óhmica:_ $r$ constante en todo el rango.
+- _Diodo y LED:_ $r$ decrece exponencialmente con $V$ en la zona de conducción directa.
+- _Lámpara:_ $r$ crece con $V$, reflejando el aumento de temperatura del filamento.
 
-El filtro de Savitzky-Golay es necesario para suavizar el ruido inherente a la derivación numérica de datos discretos, preservando la forma general de la curva.
+El filtro de Savitzky-Golay suaviza el ruido inherente a la derivación numérica de datos discretos.
 
 == Estimación de la temperatura del filamento
 
@@ -501,11 +629,11 @@ def temperatura_filamento(V, I, R0=14.7, T0=295.0, alpha_exp=1.2):
     return T, R
 ```
 
-Conociendo la resistencia en frío $R_0 = V_0 / I_0 = 14.7 space Omega$ (medida al punto de menor tensión) y el exponente de temperatura del tungsteno $alpha approx 1.2$, se puede invertir la relación $R = R_0 (T / T_0)^alpha$ para obtener la temperatura del filamento en cada punto de operación:
+Conociendo la resistencia en frío $R_0 = 14","7 space Omega$ y el exponente de temperatura del tungsteno $alpha approx 1","2$, se puede invertir la relación $R = R_0 (T / T_0)^alpha$:
 
 $ T = T_0 dot (R / R_0)^(1 / alpha) $
 
-Esto permite verificar que la lámpara alcanza temperaturas del orden de 2000--2500 K en su rango de operación, muy por debajo del punto de fusión del tungsteno (3695 K), lo cual es consistente con una lámpara funcionando en condiciones normales.
+Esto permite verificar que la lámpara alcanza temperaturas del orden de 2000--2500 K, muy por debajo del punto de fusión del tungsteno (3695 K).
 
 == Verificación de la ley de Stefan-Boltzmann
 
@@ -520,44 +648,38 @@ def verificacion_stefan_boltzmann(V, I, T):
     return resultado.slope, resultado.intercept, resultado.rvalue**2
 ```
 
-En régimen estacionario, la potencia disipada por el filamento se radia al entorno según la ley de Stefan-Boltzmann: $P = epsilon sigma A T^4$. Tomando logaritmo en ambos lados: $ln(P) = 4 ln(T) + "cte"$. Si el ajuste lineal de $ln(P)$ vs $ln(T)$ produce una pendiente cercana a 4, se confirma que el mecanismo dominante de disipación es la radiación térmica. Desviaciones de este valor pueden atribuirse a pérdidas por conducción a través de los contactos o a la dependencia de la emisividad con la temperatura.
+En régimen estacionario, $P = epsilon sigma A T^4$. Tomando logaritmo: $ln(P) = 4 ln(T) + "cte"$. Una pendiente cercana a 4 en el ajuste $ln(P)$ vs $ln(T)$ confirma que la radiación térmica es el mecanismo dominante de disipación.
 
 == Extracción del factor de idealidad
 
 ```python
-def factor_idealidad(V, I, V_min=None, V_max=None):
+def factor_idealidad(V, I):
     """ln(I) = ln(I_s) + V / (n * V_T)
     Pendiente = 1 / (n * V_T) -> n = 1 / (pendiente * V_T)"""
     mask = I > 1e-6
-    V_fit = V[mask]
-    ln_I = np.log(I[mask])
-    resultado = linregress(V_fit, ln_I)
+    resultado = linregress(V[mask], np.log(I[mask]))
     n = 1.0 / (resultado.slope * V_T)
     I_s = np.exp(resultado.intercept)
-    return n, I_s, resultado.rvalue**2, (V_fit, ln_I, resultado)
+    return n, I_s, resultado.rvalue**2
 ```
 
-Al graficar $ln(I)$ vs $V$, la ecuación de Shockley predice una recta cuya pendiente es $1 / (n V_T)$. Este método gráfico permite extraer el factor de idealidad $n$ de forma independiente al ajuste no lineal, y comparar ambos resultados como validación cruzada. La ordenada al origen proporciona $ln(I_s)$, lo que permite estimar la corriente de saturación.
+Al graficar $ln(I)$ vs $V$, la ecuación de Shockley predice una recta con pendiente $1 / (n V_T)$. Este método gráfico permite extraer $n$ de forma independiente al ajuste no lineal, como validación cruzada.
 
 == Energía del gap del LED
 
 ```python
-def energia_gap_led(V, I, metodo="tangente"):
+def energia_gap_led(V, I):
     """E_g = q * V_th, lambda = h * c / E_g"""
     n_pts = max(3, len(V) // 3)
-    V_lin = V[-n_pts:]
-    I_lin = I[-n_pts:]
-    resultado = linregress(V_lin, I_lin)
+    resultado = linregress(V[-n_pts:], I[-n_pts:])
     V_th = -resultado.intercept / resultado.slope
-    E_g = q * V_th
-    lam = h * c / E_g
-    lam_nm = lam * 1e9
+    lam_nm = h * c / (q * V_th) * 1e9
     return {"V_th": V_th, "E_g_eV": V_th, "lambda_nm": lam_nm}
 ```
 
-La tensión umbral $V_"th"$ del LED está directamente relacionada con la energía del gap del semiconductor: $E_g = q V_"th"$. A partir de esta energía se puede calcular la longitud de onda del fotón emitido $lambda = h c \/ E_g$. Para un LED rojo, se espera $lambda approx 620-750$ nm, lo que corresponde a $V_"th" approx 1.65-2.0$ V. La coincidencia entre el valor medido y el color observado del LED constituye una verificación experimental directa de la relación entre la estructura de bandas del semiconductor y la emisión de luz.
+La tensión umbral $V_"th"$ del LED se relaciona con la energía del gap: $E_g = q V_"th"$, y la longitud de onda emitida: $lambda = h c \/ E_g$. Para un LED rojo se espera $lambda approx 620$--$750$ nm ($V_"th" approx 1","65$--$2","0$ V). La coincidencia entre el valor calculado y el color observado constituye una verificación experimental directa.
 
-== Simulación Monte Carlo para propagación de incertidumbres
+== Simulación Monte Carlo
 
 ```python
 def monte_carlo(datos, modelo_info, N=10000, seed=42):
@@ -580,30 +702,34 @@ def monte_carlo(datos, modelo_info, N=10000, seed=42):
     banda_sup = np.percentile(curvas, 97.5, axis=0)
 ```
 
-Cuando los modelos son no lineales (como Shockley con Lambert W o la ley potencial), la propagación analítica de incertidumbres puede ser imprecisa o algebraicamente inviable. El método Monte Carlo ofrece una alternativa: se generan $N = 10000$ conjuntos de datos perturbados con ruido gaussiano proporcional a la incertidumbre del instrumento ($sigma$), se reajusta el modelo en cada caso, y se obtienen distribuciones empíricas de los parámetros. Los percentiles 2.5% y 97.5% de las curvas resultantes definen una banda de confianza del 95%. Este enfoque es especialmente válido para el diodo y el LED, donde la alta no linealidad del modelo hace que las incertidumbres de los parámetros no sean simétricas.
+Cuando los modelos son no lineales, la propagación analítica de incertidumbres puede ser imprecisa. El método Monte Carlo genera $N = 10000$ conjuntos de datos perturbados con ruido gaussiano proporcional a la incertidumbre instrumental, reajusta el modelo en cada caso, y obtiene distribuciones empíricas de los parámetros. Los percentiles 2,5% y 97,5% definen una banda de confianza del 95%.
 
 == Conclusiones del desarrollo computacional
 
-El código implementado permite extraer conclusiones físicas que trascienden la simple visualización de datos:
++ _Validación de modelos:_ El estadístico $chi^2$ reducido permite evaluar cuantitativamente la adecuación de cada modelo a los datos.
 
-+ *Validación de modelos:* El ajuste por mínimos cuadrados con el estadístico $chi^2$ reducido permite evaluar cuantitativamente si el modelo físico propuesto describe adecuadamente los datos, o si se requieren correcciones (como la resistencia serie $R_s$ en Shockley).
++ _Conexión teoría-experimento:_ Cada parámetro ajustado tiene interpretación física directa ($R$, $n$, $I_s$, $b$).
 
-+ *Conexión teoría-experimento:* Cada parámetro ajustado tiene interpretación física directa. La resistencia $R$ confirma la ley de Ohm, el factor de idealidad $n$ revela el mecanismo de transporte dominante, y el exponente $b$ de la lámpara vincula la curva $I$-$V$ con propiedades del material del filamento.
++ _Propagación rigurosa de incertidumbres:_ La simulación Monte Carlo proporciona intervalos de confianza realistas para modelos no lineales.
 
-+ *Propagación rigurosa de incertidumbres:* La simulación Monte Carlo proporciona intervalos de confianza realistas para modelos no lineales, superando las limitaciones de la propagación linealizada.
++ _Medición indirecta de temperatura:_ La curva I(V) de la lámpara permite estimar la temperatura del filamento y verificar la ley de Stefan-Boltzmann.
 
-+ *Medición indirecta de temperatura:* Sin usar un termómetro, la curva $I$-$V$ de la lámpara permite estimar la temperatura del filamento y verificar la ley de Stefan-Boltzmann, demostrando cómo una medición eléctrica sencilla contiene información termodinámica.
-
-+ *Determinación del gap semiconductor:* A partir de la tensión umbral del LED se estima la energía del gap y la longitud de onda de emisión, conectando el comportamiento eléctrico del dispositivo con sus propiedades ópticas y la física del estado sólido.
++ _Determinación del gap semiconductor:_ A partir de la tensión umbral del LED se estima la energía del gap y la longitud de onda de emisión.
 
 == Nota sobre herramientas utilizadas
 
 Para la elaboración de esta sección se consultó a Claude (Anthropic) como herramienta complementaria de referencia. Se utilizó principalmente para contrastar las expresiones de los modelos físicos (ecuación de Shockley, dependencia $R(T)$ del tungsteno, ley de Stefan-Boltzmann) con las formulaciones presentes en la bibliografía, y para verificar la consistencia dimensional de las ecuaciones implementadas.
 
-== Referencias
+// =============================================
+// REFERENCIAS
+// =============================================
 
-+ S. M. Sze y K. K. Ng, _Physics of Semiconductor Devices_, 3ra ed., Wiley, 2007. Referencia para la ecuación de Shockley, el factor de idealidad $n$, la corriente de saturación $I_s$ y la relación $E_g = q V_"th"$ en diodos y LEDs.
+= Referencias
 
-+ JCGM 101:2008, _Evaluation of measurement data -- Supplement 1 to the "Guide to the expression of uncertainty in measurement" -- Propagation of distributions using a Monte Carlo method_. Norma internacional que fundamenta el uso de simulación Monte Carlo para la propagación de incertidumbres cuando los modelos son no lineales.
+#set enum(numbering: "[1]")
 
-+ Anthropic, _Claude_ (modelo de lenguaje), 2024--2026. Utilizado como herramienta de asistencia complementaria para la verificación de modelos físicos.
++ S. M. Sze y K. K. Ng, _Physics of Semiconductor Devices_, 3ra ed., Wiley, 2007.
+
++ JCGM 101:2008, _Evaluation of measurement data -- Supplement 1 to the "Guide to the expression of uncertainty in measurement" -- Propagation of distributions using a Monte Carlo method_.
+
++ Anthropic, _Claude_ (modelo de lenguaje), 2024--2026. Herramienta de asistencia complementaria para la verificación de modelos físicos.
