@@ -177,19 +177,32 @@
 
 
 ```py
-r1 = [
+r1 = {
+  "mA":6.1, # mA
+  "Tension":1.49, # V/omh
+} # => Rojo-Rojo-Marron-Dorado => teorico = 220 ohm, practico = 218 ohm, tolerancia = 5%
 
-] # => Rojo-Rojo-Marron-Dorado => teorico = 220 ohm, practico = 218 ohm, tolerancia = 5%
+r2 = [
+  9.1, # mA
+  1.48, # V
+] # => Naranja-Naranja-Marron-Dorado => teorico = 330 ohm, practico = 325 ohm, tolerancia = 5%
 
-r2 = [] # => Naranja-Naranja-Marron-Dorado => teorico = 330 ohm, practico = 325 ohm, tolerancia = 5%
-
-r3 = [] # => Marron-Verde-Marron-Dorado => teorico = 150 ohm, practico = 148 ohm, tolerancia = 5%
+r3 = [
+  2.1, # mA
+  1.49, # V
+] # => Marron-Verde-Marron-Dorado => teorico = 150 ohm, practico = 148 ohm, tolerancia = 5%
 
 r_10Megohms = [] # => teorico = 10 Mohms, practico = 9.72 Mohms
 
-paralelo = []
+r1_r2_r3_paralelo = [
+  21.3, # mA
+  1.46, # V
+]
 
-serie = []
+r1_r2_r3_serie = [
+  2.1, # mA
+  1.49, # V
+]
 ```
 // Por que hay que invertir la fuente?
 // Hay valor de resis a partir del cual es mejor el largo o el corto?
