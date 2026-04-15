@@ -213,7 +213,74 @@ Por lo que, si se reemplaza $m$, se obtiene:
 
 $ R = 1 / m approx 325 space Omega $
 
-#v(0.5em)
+#pagebreak()
+
+== Lámpara de filamento
+
+Se realizaron 24 mediciones sin superar el límite de voltaje de 12V. Se fue incrementando aproximadamente en 0,5V.
+
+#v(1em)
+
+#figure(
+  image(img-dir + "image9.png", width: 85%),
+  caption: [Curva I-V de la lámpara de filamento de tungsteno],
+)
+
+#pagebreak()
+
+== Diodo de Silicio
+
+Se realizaron 19 mediciones comenzando con un voltaje de 0,4V y aumentando hasta 2V. Se tuvo en cuenta no superar el límite de 125mA para no quemar el fusible del amperímetro. A su vez se consideró la polaridad del diodo al conectar los cables, conectando el ánodo al polo positivo y el cátodo al polo negativo. A continuación se presentan los gráficos realizados.
+
+#v(1em)
+
+#figure(
+  image(img-dir + "image10.png", width: 85%),
+  caption: [Curva I-V del diodo de silicio],
+)
+
+#pagebreak()
+
+== Diodo LED
+
+Se realizaron 30 mediciones en este caso. Se tuvo en cuenta el hecho de que la corriente de circulación debía mantenerse menor a 30 mA. A su vez se agregó una resistencia en serie que limitó la corriente para evitar que se perjudique el diodo producto de posibles variaciones de tensión.
+
+#v(1em)
+
+#figure(
+  image(img-dir + "image12.png", width: 85%),
+  caption: [Curva I-V del diodo LED rojo],
+)
+
+#pagebreak()
+
+= Análisis de los resultados
+
+== Resistencia de carbón depositado
+
+El gráfico de intensidad de corriente en función de la tensión para la resistencia de carbón depositado evidencia una relación lineal marcada entre ambas magnitudes. A medida que aumenta la tensión aplicada, la corriente también aumenta de manera proporcional, lo que indica un comportamiento acorde con la Ley de Ohm.
+
+El ajuste lineal obtenido presenta una pendiente aproximada de *3,08 mA/V*, mientras que la ordenada al origen resulta cercana a cero. Esto permite afirmar que el modelo lineal describe adecuadamente los datos experimentales y que, en el rango de tensiones analizado, la resistencia se comporta como un *elemento óhmico*.
+
+La pendiente de la recta representa la conductancia del resistor, por lo que su inversa corresponde al valor de la resistencia. A partir de ella, se obtiene un valor aproximado de:
+
+$ R = 1 / m approx 1 / (3,08 "mA/V") approx 0,325 "k" Omega $
+
+Este resultado indica que la resistencia se mantuvo prácticamente constante a lo largo de todas las mediciones realizadas, lo cual refuerza la conclusión de que el componente presenta comportamiento óhmico. Por lo tanto, las mediciones obtenidas fueron consistentes con lo esperado teóricamente para una resistencia de carbón depositado.
+
+#pagebreak()
+
+= Anexo
+
+== Cálculo del error
+
+$ E = (|R_"pendiente" - R_"nominal"|) / R_"nominal" times 100 = (|325 Omega - 330 Omega|) / (330 Omega) times 100 = 1,52% $
+
+#pagebreak()
+
+== Tablas de datos
+
+=== Resistencia de carbón depositado
 
 #align(center)[
   #table(
@@ -242,20 +309,7 @@ $ R = 1 / m approx 325 space Omega $
   )
 ]
 
-#pagebreak()
-
-== Lámpara de filamento
-
-Se realizaron 24 mediciones sin superar el límite de voltaje de 12V. Se fue incrementando aproximadamente en 0,5V.
-
-#v(1em)
-
-#figure(
-  image(img-dir + "image9.png", width: 85%),
-  caption: [Curva I-V de la lámpara de filamento de tungsteno],
-)
-
-#v(0.5em)
+=== Lámpara de filamento
 
 #align(center)[
   #table(
@@ -289,20 +343,7 @@ Se realizaron 24 mediciones sin superar el límite de voltaje de 12V. Se fue inc
   )
 ]
 
-#pagebreak()
-
-== Diodo de Silicio
-
-Se realizaron 19 mediciones comenzando con un voltaje de 0,4V y aumentando hasta 2V. Se tuvo en cuenta no superar el límite de 125mA para no quemar el fusible del amperímetro. A su vez se consideró la polaridad del diodo al conectar los cables, conectando el ánodo al polo positivo y el cátodo al polo negativo. A continuación se presentan los gráficos realizados.
-
-#v(1em)
-
-#figure(
-  image(img-dir + "image10.png", width: 85%),
-  caption: [Curva I-V del diodo de silicio],
-)
-
-#v(0.5em)
+=== Diodo de Silicio
 
 #align(center)[
   #table(
@@ -331,20 +372,7 @@ Se realizaron 19 mediciones comenzando con un voltaje de 0,4V y aumentando hasta
   )
 ]
 
-#pagebreak()
-
-== Diodo LED
-
-Se realizaron 30 mediciones en este caso. Se tuvo en cuenta el hecho de que la corriente de circulación debía mantenerse menor a 30 mA. A su vez se agregó una resistencia en serie que limitó la corriente para evitar que se perjudique el diodo producto de posibles variaciones de tensión.
-
-#v(1em)
-
-#figure(
-  image(img-dir + "image12.png", width: 85%),
-  caption: [Curva I-V del diodo LED rojo],
-)
-
-#v(0.5em)
+=== Diodo LED (rojo)
 
 #align(center)[
   #table(
@@ -383,30 +411,6 @@ Se realizaron 30 mediciones en este caso. Se tuvo en cuenta el hecho de que la c
     [0.69], [0.5],
   )
 ]
-
-#pagebreak()
-
-= Análisis de los resultados
-
-== Resistencia de carbón depositado
-
-El gráfico de intensidad de corriente en función de la tensión para la resistencia de carbón depositado evidencia una relación lineal marcada entre ambas magnitudes. A medida que aumenta la tensión aplicada, la corriente también aumenta de manera proporcional, lo que indica un comportamiento acorde con la Ley de Ohm.
-
-El ajuste lineal obtenido presenta una pendiente aproximada de *3,08 mA/V*, mientras que la ordenada al origen resulta cercana a cero. Esto permite afirmar que el modelo lineal describe adecuadamente los datos experimentales y que, en el rango de tensiones analizado, la resistencia se comporta como un *elemento óhmico*.
-
-La pendiente de la recta representa la conductancia del resistor, por lo que su inversa corresponde al valor de la resistencia. A partir de ella, se obtiene un valor aproximado de:
-
-$ R = 1 / m approx 1 / (3,08 "mA/V") approx 0,325 "k" Omega $
-
-Este resultado indica que la resistencia se mantuvo prácticamente constante a lo largo de todas las mediciones realizadas, lo cual refuerza la conclusión de que el componente presenta comportamiento óhmico. Por lo tanto, las mediciones obtenidas fueron consistentes con lo esperado teóricamente para una resistencia de carbón depositado.
-
-#pagebreak()
-
-= Anexo
-
-== Cálculo del error
-
-$ E = (|R_"pendiente" - R_"nominal"|) / R_"nominal" times 100 = (|325 Omega - 330 Omega|) / (330 Omega) times 100 = 1,52% $
 
 #pagebreak()
 
