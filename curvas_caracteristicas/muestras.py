@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def graficar_resistencia(tension_V, corriente_mA, guardar='./grafico.png'):
+def graficar_resistencia(tension_V, corriente_mA, guardar='./assets/grafico_resistencia.png'):
     tension = np.array(tension_V)
     corriente = np.array(corriente_mA)
 
@@ -30,7 +30,7 @@ def graficar_resistencia(tension_V, corriente_mA, guardar='./grafico.png'):
     plt.savefig(guardar, dpi=150)
 
 
-def graficar_lampara(tension_V, corriente_mA, guardar='./grafico_lampara.png'):
+def graficar_lampara(tension_V, corriente_mA, guardar='./assets/grafico_lampara.png'):
     plt.figure(figsize=(8, 5))
     plt.plot(tension_V, corriente_mA, 'o-', label='Datos medidos')
     plt.xlabel('Tension (V)')
@@ -42,7 +42,7 @@ def graficar_lampara(tension_V, corriente_mA, guardar='./grafico_lampara.png'):
     plt.savefig(guardar, dpi=150)
 
 
-def graficar_led(tension_V, corriente_mA, guardar='./grafico_led.png'):
+def graficar_led(tension_V, corriente_mA, guardar='./assets/grafico_led.png'):
     plt.figure(figsize=(8, 5))
     plt.plot(tension_V, corriente_mA, 'o-', label='Datos medidos')
     plt.xlabel('Tension (V)')
@@ -54,7 +54,7 @@ def graficar_led(tension_V, corriente_mA, guardar='./grafico_led.png'):
     plt.savefig(guardar, dpi=150)
 
 
-def graficar_diodo(tension_V, corriente_mA, guardar='./grafico_diodo.png'):
+def graficar_diodo(tension_V, corriente_mA, guardar='./assets/grafico_diodo.png'):
     plt.figure(figsize=(8, 5))
     plt.plot(tension_V, corriente_mA, 'o-', label='Datos medidos')
     plt.xlabel('Tension (V)')
