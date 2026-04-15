@@ -1,5 +1,5 @@
 #set document(
-  title: "Curvas Características I(V) de Elementos de Dos Terminales",
+  title: "Curvas Características I(V)",
   author: ("Raggio, J. I.", "Moralejo, C.", "Pipet, M. M.", "Olivero, M.", "Abramzon, J."),
 )
 
@@ -41,12 +41,13 @@
 )
 
 #set heading(numbering: "1.1.")
+#set math.equation(numbering: "(1)")
 #show heading.where(level: 1): it => {
   set text(size: 13pt, weight: "bold")
   set par(first-line-indent: 0em)
   v(1em)
   block(width: 100%)[
-    #upper(it)
+    #it
   ]
   v(0.4em)
 }
@@ -94,7 +95,7 @@
 // CARATULA (formato obligatorio de la catedra)
 // =============================================
 
-#set page(numbering: none, header: none)
+#set page(numbering: none, header: none, footer: none)
 
 #set par(first-line-indent: 0em)
 
@@ -155,6 +156,30 @@
 #pagebreak()
 
 // =============================================
+// INDICE
+// =============================================
+
+#set page(
+  numbering: "i",
+  header: none,
+  footer: context {
+    set text(size: 8pt, fill: gray)
+    align(center)[#counter(page).display("i")]
+  },
+)
+#counter(page).update(1)
+
+#v(2em)
+#align(center)[
+  #text(size: 14pt, weight: "bold")[Índice]
+]
+#v(1em)
+
+#outline(title: none, depth: 2, indent: 1.5em)
+
+#pagebreak()
+
+// =============================================
 // CONTENIDO
 // =============================================
 
@@ -172,6 +197,20 @@
       #line(length: 100%, stroke: 0.4pt + gray)
     ]
   },
+  footer: context {
+    if counter(page).get().first() > 1 [
+      #set text(size: 8pt, fill: gray)
+      #line(length: 100%, stroke: 0.4pt + gray)
+      #v(0.2em)
+      #grid(
+        columns: (1fr, 1fr, 1fr),
+        align: (left, center, right),
+        [_ITBA -- Física III_],
+        [#counter(page).display("1")],
+        [_Abril 2026_],
+      )
+    ]
+  },
 )
 #counter(page).update(1)
 
@@ -181,8 +220,7 @@
 
 #align(center)[
   #text(size: 16pt, weight: "bold")[
-    Curvas Características I(V) de Elementos \
-    de Dos Terminales
+    Curvas Características I(V)
   ]
 
   #v(0.8em)
@@ -234,17 +272,17 @@
 
 La resistencia eléctrica de un componente de dos terminales se define como el cociente entre la diferencia de potencial aplicada y la corriente que circula:
 
-$ R equiv (Delta V) / I #h(6em) (1) $
+$ R equiv (Delta V) / I $
 
 Un material se denomina _óhmico_ cuando la relación entre corriente y tensión es lineal, es decir, cuando la resistencia $R$ es constante. Para clasificar un componente se traza su _curva característica_:
 
-$ I = f(V) #h(6em) (2) $
+$ I = f(V) $
 
 Si $I(V)$ es una recta que pasa por el origen, el componente es óhmico y la pendiente $m = 1\/R$ permite determinar su resistencia. Los componentes donde $R$ varía con la tensión o la dirección de la corriente se denominan _no óhmicos_.
 
 El paso de corriente a través de cualquier conductor produce disipación de energía térmica por efecto Joule:
 
-$ Q = I^2 dot R dot t #h(6em) (3) $
+$ Q = I^2 dot R dot t $
 
 Este efecto es particularmente relevante en la lámpara de filamento, donde la potencia disipada eleva la temperatura del tungsteno, modificando su resistividad y generando el comportamiento no lineal observado.
 
@@ -254,7 +292,7 @@ Este efecto es particularmente relevante en la lámpara de filamento, donde la p
 
 = Dispositivo experimental
 
-Se utilizó una fuente de alimentación de corriente continua, un voltímetro digital dispuesto en paralelo y un amperímetro digital dispuesto en serie. Los componentes analizados fueron: una resistencia de carbón depositado (valor nominal 220 $Omega$), una lámpara de filamento de tungsteno, un diodo de silicio y un diodo LED rojo.
+Se utilizó una fuente de alimentación de corriente continua, un voltímetro digital dispuesto en paralelo y un amperímetro digital dispuesto en serie. Los componentes analizados fueron: una resistencia de carbón depositado (valor nominal 330 $Omega$), una lámpara de filamento de tungsteno, un diodo de silicio y un diodo LED rojo.
 
 #v(0.5em)
 
@@ -585,7 +623,7 @@ La ecuación de Shockley ideal $I = I_s (e^(V \/ n V_T) - 1)$ no contempla la re
 
 Los tres parámetros ajustados revelan:
 - $I_s$ (corriente de saturación inversa): del orden de $10^(-10)$ A para el diodo de silicio, refleja la concentración de portadores minoritarios.
-- $n$ (factor de idealidad): valores cercanos a 2 indican que la recombinación en la zona de deplexión domina sobre la difusión ($n = 1$).
+- $n$ (factor de idealidad): valores cercanos a 2 indican que la recombinación en la zona de depleción domina sobre la difusión ($n = 1$).
 - $R_s$ (resistencia serie): modela las resistencias de contacto y del material semiconductor fuera de la juntura.
 
 === Modelo potencial para la lámpara
