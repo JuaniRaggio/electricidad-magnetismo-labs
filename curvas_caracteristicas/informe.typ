@@ -394,7 +394,7 @@ El gráfico de la @fig-resistencia evidencia una relación lineal entre corrient
 
 El valor obtenido es consistente con una resistencia comercial de $330 space Omega$ (tolerancia $plus.minus 5%$). El error porcentual respecto al valor nominal es:
 
-$ E = (|R_"exp" - R_"nom"|) / R_"nom" times 100 = (|325 - 330|) / 330 times 100 = 1","52 % $
+$ E = (|R_"exp" - R_"nom"|) / R_"nom" times 100 % = (|325 - 330|) / 330 times 100 % = 1","52 % $
 
 Este error se encuentra dentro de la tolerancia del componente, lo que valida tanto el método de medición como el ajuste realizado.
 
@@ -439,8 +439,6 @@ Al igual que el diodo de silicio, el LED es un componente no óhmico cuya no lin
 // =============================================
 // 7. ANEXO
 // =============================================
-
-#pagebreak()
 
 = Anexo
 
