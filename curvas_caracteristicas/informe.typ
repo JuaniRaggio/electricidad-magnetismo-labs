@@ -226,7 +226,7 @@
   #v(0.8em)
 
   #text(size: 10pt)[
-    J. I. Raggio#super[1], C. Moralejo#super[1], M. M. Pipet#super[1], M. Olivero#super[1], J. Abramzon#super[1]
+    J. I. Raggio, C. Moralejo, M. M. Pipet, M. Olivero, J. Abramzon
   ]
 
   #v(0.3em)
@@ -430,11 +430,11 @@ La @fig-led presenta un comportamiento similar al diodo de silicio, con una tens
 
 El error porcentual entre el valor experimental y el nominal se calcula como:
 
-$ E = (|R_"exp" - R_"nom"|) / R_"nom" times 100 $
+$ E = (|R_"exp" - R_"nom"|) / R_"nom" times 100 % $
 
 Para la resistencia:
 
-$ E = (|325 space Omega - 330 space Omega|) / (330 space Omega) times 100 = 1","52 % $
+$ E = (|325 space Omega - 330 space Omega|) / (330 space Omega) times 100 % = 1","52 % $
 
 == Tablas de datos experimentales
 
