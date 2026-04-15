@@ -1,46 +1,29 @@
-def ohm_law(circ):
-    return circ[1]/(circ[0] * 1000)
+def ohm_law(comp):
+    """R = V / I, con I en mA -> convertir a A dividiendo por 1000."""
+    return comp["V"] / (comp["I_mA"] / 1000)
 
-r1 = [
-  6.1, # mA
-  1.49, # V/omh
-] # => Rojo-Rojo-Marron-Dorado => teorico = 220 ohm, practico = 218 ohm, tolerancia = 5%
 
-r2 = [
-  9.1, # mA
-  1.48, # V
-] # => Naranja-Naranja-Marron-Dorado => teorico = 330 ohm, practico = 325 ohm, tolerancia = 5%
+# Rojo-Rojo-Marron-Dorado | teorico = 220 ohm, multimetro = 218 ohm, tol = 5%
+r1 = {"I_mA": 6.1, "V": 1.49}
 
-r3 = [
-  2.1, # mA
-  1.49, # V
-] # => Marron-Verde-Marron-Dorado => teorico = 150 ohm, practico = 148 ohm, tolerancia = 5%
+# Naranja-Naranja-Marron-Dorado | teorico = 330 ohm, multimetro = 325 ohm, tol = 5%
+r2 = {"I_mA": 2.1, "V": 1.48}
 
-r_10Megohms = [] # => teorico = 10 Mohms, practico = 9.72 Mohms
+# Marron-Verde-Marron-Dorado | teorico = 150 ohm, multimetro = 148 ohm, tol = 5%
+r3 = {"I_mA": 9.1, "V": 1.49}
 
-r1_r2_r3_paralelo = [
-  21.3, # mA
-  1.46, # V
-]
+r_10M = {"teorico": 10e6, "multimetro": 9.72e6}
 
-r1_r2_r3_serie = [
-  2.1, # mA
-  1.49, # V
-]
+r1_r2_r3_paralelo = {"I_mA": 21.3, "V": 1.46}
+r1_r2_r3_serie    = {"I_mA": 2.1,  "V": 1.49}
 
-print("Resistencia 1 (220 nominal, 218 medido)", ohm_law(r1))
-print("Resistencia 2", ohm_law(r2))
-print("Resistencia 3", ohm_law(r3))
-print("R1, R2, R3, paralelo", ohm_law(r1_r2_r3_paralelo))
-print("R1, R2, R3, serie", ohm_law(r1_r2_r3_serie))
 
-r_10Megohms = []
-
-paralelo = []
-
-serie = []
+print(f"R1 (220 nominal, 218 medido): {ohm_law(r1):.1f} ohm")
+print(f"R2 (330 nominal, 325 medido): {ohm_law(r2):.1f} ohm")
+print(f"R3 (150 nominal, 148 medido): {ohm_law(r3):.1f} ohm")
+print(f"Paralelo (teorico ~70):       {ohm_law(r1_r2_r3_paralelo):.1f} ohm")
+print(f"Serie (teorico 700):          {ohm_law(r1_r2_r3_serie):.1f} ohm")
 
 # Por que hay que invertir la fuente?
 # Hay valor de resis a partir del cual es mejor el largo o el corto?
 # Por que esta esta diferencia entre "corto" y "largo"? Cuales son los valores limites
-
