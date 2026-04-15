@@ -781,6 +781,14 @@ Cuando los modelos son no lineales, la propagación analítica de incertidumbres
 
 Para la elaboración de esta sección se consultó a Claude (Anthropic) como herramienta complementaria de referencia. Se utilizó principalmente para contrastar las expresiones de los modelos físicos (ecuación de Shockley, dependencia $R(T)$ del tungsteno, ley de Stefan-Boltzmann) con las formulaciones presentes en la bibliografía, y para verificar la consistencia dimensional de las ecuaciones implementadas.
 
+== Dashboard interactivo
+
+Los gráficos y modelos de esta sección se encuentran disponibles en un dashboard interactivo que permite explorar los ajustes, variar parámetros y visualizar las bandas de confianza de forma dinámica:
+
+#align(center)[
+  #text(font: "Courier New", size: 9pt)[https://curvas-caracteristicas.streamlit.app/]
+]
+
 // =============================================
 // REFERENCIAS
 // =============================================
