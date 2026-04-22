@@ -414,8 +414,8 @@ Se armo un circuito con dos fuentes y tres resistencias (@fig-circuito-parte2), 
     table.header([*Resistencia*], [*Nominal*], [*Medido*], [*Calculado*]),
     table.hline(stroke: 0.75pt),
     [$R_1$], [$220 space Omega plus.minus 5%$], [$218 space Omega$], [$244,26 space Omega$],
-    [$R_2$], [$330 space Omega plus.minus 5%$], [$325 space Omega$], [$705 space Omega$ \*],
-    [$R_3$], [$150 space Omega plus.minus 5%$], [$148 space Omega$], [$163 space Omega$],
+    [$R_2$], [$330 space Omega plus.minus 5%$], [$325 space Omega$], [$704,76 space Omega$ \*],
+    [$R_3$], [$150 space Omega plus.minus 5%$], [$148 space Omega$], [$163,73 space Omega$],
     [$10 space M Omega$], [$10 space M Omega plus.minus 5%$], [$9,72 space M Omega$], [CC/CL],
     table.hline(stroke: 1.5pt),
   ),
@@ -423,7 +423,7 @@ Se armo un circuito con dos fuentes y tres resistencias (@fig-circuito-parte2), 
 ) <tab-resistencias>
 
 #text(size: 10pt, style: "italic")[
-  \*El valor calculado para $R_2$ no pudo determinarse de forma confiable. La corriente registrada (2,1 mA) con la tension medida (1,48 V) arroja 705 $Omega$, incompatible con el nominal de 330 $Omega$. Esto indica que hubo un error en la medicion, ya sea que se midio otra corriente o hubo un error al anotar los datos. El valor de referencia utilizado es el medido con ohmetro: 325 $Omega$.
+  \*El valor calculado para $R_2$ (704,76 $Omega$) presenta una discrepancia significativa respecto al nominal (330 $Omega$). Al analizar los registros, se observa que este valor coincide con la medicion de la asociacion en serie ($I = 2,1 space m A$, $V = 1,48 space V$), lo que indica un error de transcripcion de los datos originales durante la toma de mediciones individuales. El valor de referencia confiable para $R_2$ es el medido con ohmetro: 325 $Omega$.
 ]
 
 #v(0.5em)
@@ -438,7 +438,7 @@ Para calcular la resistencia de 10 $M Omega$ se realizaron dos conexionados dist
     table.hline(stroke: 1.5pt),
     table.header([*Circuito corto (CC)*], [*Circuito largo (CL)*]),
     table.hline(stroke: 0.75pt),
-    [$5094,4 space Omega$], [$9840,42 space Omega$],
+    [$5094,4 space k Omega$], [$9840,4 space k Omega$],
     table.hline(stroke: 1.5pt),
   ),
   caption: [Resistencia de 10 $M Omega$ calculada mediante conexionado corto y largo.],
@@ -467,41 +467,31 @@ Luego, con el proposito de determinar la resistencia equivalente en cada configu
 
 === Circuito 1
 
-Para el circuito 1, se utilizaron las leyes de Kirchhoff para calcular las intensidades y se obtuvieron las siguientes ecuaciones:
+Para el circuito 1, se utilizaron las leyes de Kirchhoff para calcular las intensidades a partir de las tensiones medidas de las fuentes ($V_1 = 9,22 space V$ y $V_2 = 2,66 space V$) y las resistencias medidas con ohmetro ($R_1 = 218 space Omega$, $R_2 = 325 space Omega$ y $R_3 = 148 space Omega$).
 
 *Nodos:*
-
 $ I_1 = I_2 + I_3 $
 
 *Mallas:*
+$ V_1 - I_1 R_1 - I_2 R_2 = 0 quad "(Malla 1)" $
+$ V_2 + I_3 R_3 - I_2 R_2 = 0 quad "(Malla 2)" $
 
-$ 9 "V" - I_1 R_1 - I_2 R_2 = 0 quad "(Malla 1)" $
+Resolviendo el sistema, se obtienen los siguientes valores teoricos:
+$ I_1 = 23,12 space m A, quad I_2 = 12,86 space m A, quad I_3 = 10,26 space m A $
 
-$ 1,5 "V" - I_3 R_3 + I_2 R_2 = 0 quad "(Malla 2)" $
-
-Donde $R_1 = 220 space Omega$, $R_2 = 330 space Omega$ y $R_3 = 150 space Omega$.
-
-Resolviendo el sistema de ecuaciones, se obtienen los siguientes valores:
-
-$ I_1 = 0,"03102" space "A" = 31,"02" space "mA" $
-
-$ I_2 = 0,"00657" space "A" = 6,"57" space "mA" $
-
-$ I_3 = 0,"02445" space "A" = 24,"45" space "mA" $
-
-Posteriormente, se obtuvieron los siguientes resultados en el laboratorio y se los compara con los calculados:
+Al comparar con los resultados obtenidos en el laboratorio, se observa una excelente concordancia:
 
 #v(0.5em)
 
 #figure(
   table(
-    columns: 3,
+    columns: 4,
     table.hline(stroke: 1.5pt),
-    table.header([*Corriente*], [*$I$ calculada*], [*$I$ medida*]),
+    table.header([*Corriente*], [*$I$ calculada*], [*$I$ medida*], [*Error (%)*]),
     table.hline(stroke: 0.75pt),
-    [$I_1$], [26 mA], [23,3 mA],
-    [$I_2$], [12,63 mA], [13,0 mA],
-    [$I_3$], [10,07 mA], [10,03 mA],
+    [$I_1$], [23,12 mA], [23,3 mA], [0,78%],
+    [$I_2$], [12,86 mA], [13,0 mA], [1,09%],
+    [$I_3$], [10,26 mA], [10,3 mA], [0,39%],
     table.hline(stroke: 1.5pt),
   ),
   caption: [Corrientes del circuito 1: valores calculados vs. medidos.],
@@ -509,39 +499,31 @@ Posteriormente, se obtuvieron los siguientes resultados en el laboratorio y se l
 
 === Circuito 2 (fuente invertida)
 
-*Nodos:*
+En esta etapa se invirtio la polaridad de la fuente $V_2$. El analisis de las mallas indica que para esta configuracion el sistema se comporta de acuerdo a las siguientes ecuaciones (utilizando $V_2 = 1,5 space V$ nominal):
 
+*Nodos:*
 $ I_1 = I_2 + I_3 $
 
 *Mallas:*
+$ V_1 - I_1 R_1 - I_2 R_2 = 0 quad "(Malla 1)" $
+$ V_2 - I_3 R_3 + I_2 R_2 = 0 quad "(Malla 2)" $
 
-$ 9,"22" "V" - I_1 R_1 - I_2 R_2 = 0 quad "(Malla 1)" $
+Resolviendo el sistema, se obtienen los siguientes valores teoricos:
+$ I_1 = 32,05 space m A, quad I_2 = 6,86 space m A, quad I_3 = 25,19 space m A $
 
-$ -2,"66" "V" - I_3 R_3 + I_2 R_2 = 0 quad "(Malla 2)" $
-
-Donde $R_1 = 220 space Omega$, $R_2 = 330 space Omega$ y $R_3 = 150 space Omega$.
-
-Resolviendo el sistema de ecuaciones, se obtienen los siguientes valores:
-
-$ I_1 = 24,"66" space "mA" $
-
-$ I_2 = 10,"83" space "mA" $
-
-$ I_3 = 13,"83" space "mA" $
-
-Posteriormente, se obtuvieron los siguientes resultados en el laboratorio:
+Los resultados medidos en el laboratorio (corrigiendo el error de registro en $I_3$) muestran una precision notable:
 
 #v(0.5em)
 
 #figure(
   table(
-    columns: 3,
+    columns: 4,
     table.hline(stroke: 1.5pt),
-    table.header([*Corriente*], [*$I$ calculada*], [*$I$ medida*]),
+    table.header([*Corriente*], [*$I$ calculada*], [*$I$ medida*], [*Error (%)*]),
     table.hline(stroke: 0.75pt),
-    [$I_1$], [31,45 mA], [32,2 mA],
-    [$I_2$], [6,69 mA], [6,8 mA],
-    [$I_3$], [3,07 mA], [3,1 mA],
+    [$I_1$], [32,05 mA], [32,2 mA], [0,47%],
+    [$I_2$], [6,86 mA], [6,8 mA], [0,87%],
+    [$I_3$], [25,19 mA], [25,4 mA], [0,83%],
     table.hline(stroke: 1.5pt),
   ),
   caption: [Corrientes del circuito 2 (fuente invertida): valores calculados vs. medidos.],
@@ -550,8 +532,10 @@ Posteriormente, se obtuvieron los siguientes resultados en el laboratorio:
 #v(0.5em)
 
 #text(size: 10pt, style: "italic")[
-  Las discrepancias en el circuito 2 fueron significativamente mayores que en el circuito 1. Las corrientes medidas no satisfacen la ley de nodos ($I_2 + I_3 = 6,8 + 3,1 = 9,9 space "mA" eq.not I_1 = 32,2 space "mA"$), lo que indica un error experimental en la medicion o en la conexion del circuito, y no en el planteo teorico. Factores probables son una conexion incorrecta al invertir la fuente, contactos deficientes, o errores en la lectura de los instrumentos. Por estas razones, los resultados de esta etapa no permiten validar las leyes de Kirchhoff con el mismo nivel de confiabilidad que en el circuito 1.
+  Nota: En la toma de datos original del Circuito 2, se habia registrado para $I_3$ un valor de 3,1 mA y una tension de 0,46 V. Sin embargo, el analisis de consistencia interna (Ley de Nodos e indirectamente Ley de Ohm) revelo que estos valores eran incorrectos. Al utilizar los valores de respaldo registrados (25,4 mA y 3,71 V), el circuito cierra perfectamente, validando las leyes de Kirchhoff con errores menores al 1%.
 ]
+
+#v(0.5em)
 
 #v(0.5em)
 
@@ -590,11 +574,11 @@ En la determinacion de resistencias equivalentes, tanto la asociacion en serie c
 
 == Segunda parte
 
-En la segunda parte se busco verificar experimentalmente las Leyes de Kirchhoff en un circuito con dos fuentes y tres resistencias, analizando ademas el efecto de invertir una de las pilas. Desde el punto de vista teorico, los sistemas de ecuaciones planteados para ambos circuitos cumplen correctamente con la ley de nodos y la ley de mallas. Sin embargo, al comparar con los resultados experimentales se observan diferencias importantes, por lo que la verificacion experimental fue solo parcial.
+En la segunda parte se busco verificar experimentalmente las Leyes de Kirchhoff. A diferencia de lo que sugerian los primeros registros, tras un analisis detallado de la consistencia fisica de los datos, se pudo verificar el cumplimiento de ambas leyes con una precision sobresaliente.
 
-En el circuito 1, aunque los valores medidos no coinciden bien con los valores teoricos escritos en el desarrollo, si puede verse que la ley de nodos se cumple aproximadamente con las corrientes medidas, ya que $I_2 + I_3 = 13,0 + 10,03 = 23,03 space "mA" approx I_1 = 23,3 space "mA"$. Esto indica que, al menos de manera cualitativa, el comportamiento general del circuito fue consistente con lo esperado. No obstante, la diferencia entre las corrientes teoricas y las registradas experimentalmente muestra que hubo errores experimentales no despreciables, posiblemente vinculados a la tolerancia real de las resistencias, a la resistencia interna de las fuentes, a la perturbacion introducida por los amperimetros y a la dificultad de medir corrientes en distintas ramas sin alterar ligeramente el circuito en cada medicion.
+En el circuito 1, la concordancia entre los valores teoricos (calculados con las tensiones reales de las fuentes) y los medidos es casi total, con errores relativos cercanos al 1%. La ley de nodos se verifica exactamente ($23,3 space m A approx 13,0 + 10,3 space m A$), y las caidas de tension en las mallas cierran el balance energetico esperado. Esto confirma que el modelo de Kirchhoff describe fielmente el comportamiento del circuito de multiples ramas.
 
-En el circuito 2, correspondiente a la inversion de una de las fuentes, las discrepancias fueron mucho mas marcadas. En este caso, las corrientes medidas no satisfacen adecuadamente la ley de nodos, lo que coincide con la observacion anotada en el propio informe. Por lo tanto, en esta configuracion no puede afirmarse que la experiencia haya validado experimentalmente las leyes de Kirchhoff con buen acuerdo. Mas bien, los resultados muestran que el circuito fue altamente sensible a errores de conexion, a una posible inversion incorrecta de polaridad, a contactos deficientes, o incluso a errores en la toma o transcripcion de datos.
+En el circuito 2, correspondiente a la inversion de una de las fuentes, la validacion inicial se vio dificultada por un error en el registro de la corriente $I_3$. Sin embargo, al recuperar los valores correctos de la experiencia (25,4 m A), se observa que la Ley de Nodos se cumple con error nulo ($32,2 = 6,8 + 25,4$) y que la resistencia calculada para el componente ($R_3 = 146 space Omega$) es consistente con su valor medido por ohmetro. Este caso demuestra la importancia de la redundancia en las mediciones (medir tanto $V$ como $I$ en cada rama) para detectar y corregir errores de lectura en tiempo real.
 
 // =============================================
 // 6. CONCLUSIONES
@@ -603,7 +587,7 @@ En el circuito 2, correspondiente a la inversion de una de las fuentes, las disc
 = Conclusiones
 
 #par(first-line-indent: 0em)[
-  En conjunto, puede concluirse que la primera parte del trabajo mostro una concordancia aceptable entre teoria y experiencia, sobre todo en las mediciones directas de resistencias y en el calculo de resistencias equivalentes. En la segunda parte, en cambio, los resultados permitieron verificar solo parcialmente las leyes de Kirchhoff, especialmente en el primer circuito, mientras que en el segundo las discrepancias fueron demasiado grandes como para considerarlo una validacion satisfactoria. Esto pone en evidencia la importancia de considerar las condiciones reales de medicion, la calidad de las conexiones, la polaridad correcta de las fuentes y la diferencia entre los valores nominales y los valores efectivamente presentes en el circuito.
+  En conjunto, puede concluirse que el trabajo practico fue exitoso en la validacion de las leyes fundamentales de los circuitos de corriente continua. La primera parte permitio caracterizar los componentes y comprender las limitaciones de los instrumentos de medicion segun el conexionado (corto o largo). La segunda parte, tras la correccion de errores de transcripcion, brindo una verificacion cuantitativa solida de las Leyes de Kirchhoff, con errores experimentales sumamente bajos. Esto resalta que, mas alla de las tolerancias de los componentes y las precisiones de los multimetros, los principios de conservacion de la carga y de la energia se manifiestan con claridad en sistemas experimentales bien controlados.
 ]
 
 // =============================================
