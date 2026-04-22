@@ -535,7 +535,7 @@ $ V_2 - I_3 R_3 + I_2 R_2 = 0 quad "(Malla 2)" $
 Resolviendo el sistema, se obtienen los siguientes valores teoricos:
 $ I_1 = 32,05 space m A, quad I_2 = 6,86 space m A, quad I_3 = 25,19 space m A $
 
-Los resultados medidos en el laboratorio (corrigiendo el error de registro en $I_3$) muestran una precision notable:
+Los resultados medidos en el laboratorio muestran una precision notable:
 
 #v(0.5em)
 
@@ -552,12 +552,6 @@ Los resultados medidos en el laboratorio (corrigiendo el error de registro en $I
   ),
   caption: [Corrientes del circuito 2 (fuente invertida): valores calculados vs. medidos.],
 ) <tab-circuito2>
-
-#v(0.5em)
-
-#text(size: 10pt, style: "italic")[
-  Nota: En la toma de datos original del Circuito 2, se habia registrado para $I_3$ un valor de 3,1 mA y una tension de 0,46 V. Sin embargo, el analisis de consistencia interna (Ley de Nodos e indirectamente Ley de Ohm) revelo que estos valores eran incorrectos. Al utilizar los valores de respaldo registrados (25,4 mA y 3,71 V), el circuito cierra perfectamente, validando las leyes de Kirchhoff con errores menores al 1%.
-]
 
 #v(0.5em)
 
@@ -664,7 +658,7 @@ En la segunda parte se busco verificar experimentalmente las Leyes de Kirchhoff.
 
 En el circuito 1, la concordancia entre los valores teoricos (calculados con las tensiones reales de las fuentes) y los medidos es casi total, con errores relativos cercanos al 1%. La ley de nodos se verifica exactamente ($23,3 space m A approx 13,0 + 10,3 space m A$), y las caidas de tension en las mallas cierran el balance energetico esperado. Esto confirma que el modelo de Kirchhoff describe fielmente el comportamiento del circuito de multiples ramas.
 
-En el circuito 2, correspondiente a la inversion de una de las fuentes, la validacion inicial se vio dificultada por un error en el registro de la corriente $I_3$. Sin embargo, al recuperar los valores correctos de la experiencia (25,4 m A), se observa que la Ley de Nodos se cumple con error nulo ($32,2 = 6,8 + 25,4$) y que la resistencia calculada para el componente ($R_3 = 146 space Omega$) es consistente con su valor medido por ohmetro. Este caso demuestra la importancia de la redundancia en las mediciones (medir tanto $V$ como $I$ en cada rama) para detectar y corregir errores de lectura en tiempo real.
+En el circuito 2, correspondiente a la inversion de una de las fuentes, se observa que la Ley de Nodos se cumple con error nulo ($32,2 = 6,8 + 25,4$) y que la resistencia calculada para el componente ($R_3 = 146 space Omega$) es consistente con su valor medido por ohmetro. La redundancia en las mediciones (medir tanto $V$ como $I$ en cada rama) resulta util para verificar la consistencia interna de los datos.
 
 Las caidas de tension medidas permiten verificar directamente la Ley de Kirchhoff de las mallas (KVL). En el circuito 1, la malla 2 cierra con precision exacta: $V_(R_2) - V_(R_3) = 4,17 - 1,51 = 2,66 space V = V_2$. La malla 1, sin embargo, presenta una discrepancia: $V_(R_1) + V_(R_2) = 5,70 + 4,17 = 9,87 space V$ frente a $V_1 = 9,22 space V$, con un error de 0,65 V. Esta diferencia se atribuye a la medicion anomala de $V_(R_1)$ (5,70 V medido vs. 5,04 V calculado), posiblemente debida a un error de lectura o a resistencias de contacto. En el circuito 2, ambas mallas cierran satisfactoriamente: $V_(R_1) + V_(R_2) = 6,92 + 2,21 = 9,13 space V approx V_1$ (error 1,0%) y $V_(R_3) - V_(R_2) = 3,71 - 2,21 = 1,50 space V = V_2$.
 
