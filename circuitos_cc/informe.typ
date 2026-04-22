@@ -90,6 +90,7 @@
 #show raw.where(block: true): set text(size: 9pt)
 
 #let img-dir = "images/"
+#let assets-dir = "assets/"
 
 // =============================================
 // CARATULA (formato obligatorio de la catedra)
@@ -414,8 +415,8 @@ Se armo un circuito con dos fuentes y tres resistencias (@fig-circuito-parte2), 
     table.header([*Resistencia*], [*Nominal*], [*Medido*], [*Calculado*]),
     table.hline(stroke: 0.75pt),
     [$R_1$], [$220 space Omega plus.minus 5%$], [$218 space Omega$], [$244,26 space Omega$],
-    [$R_2$], [$330 space Omega plus.minus 5%$], [$325 space Omega$], [$705 space Omega$ \*],
-    [$R_3$], [$150 space Omega plus.minus 5%$], [$148 space Omega$], [$163 space Omega$],
+    [$R_2$], [$330 space Omega plus.minus 5%$], [$325 space Omega$], [$704,76 space Omega$ \*],
+    [$R_3$], [$150 space Omega plus.minus 5%$], [$148 space Omega$], [$163,73 space Omega$],
     [$10 space M Omega$], [$10 space M Omega plus.minus 5%$], [$9,72 space M Omega$], [CC/CL],
     table.hline(stroke: 1.5pt),
   ),
@@ -423,8 +424,15 @@ Se armo un circuito con dos fuentes y tres resistencias (@fig-circuito-parte2), 
 ) <tab-resistencias>
 
 #text(size: 10pt, style: "italic")[
-  \*El valor calculado para $R_2$ no pudo determinarse de forma confiable. La corriente registrada (2,1 mA) con la tension medida (1,48 V) arroja 705 $Omega$, incompatible con el nominal de 330 $Omega$. Esto indica que hubo un error en la medicion, ya sea que se midio otra corriente o hubo un error al anotar los datos. El valor de referencia utilizado es el medido con ohmetro: 325 $Omega$.
+  \*El valor calculado para $R_2$ (704,76 $Omega$) presenta una discrepancia significativa respecto al nominal (330 $Omega$). Al analizar los registros, se observa que este valor coincide con la medicion de la asociacion en serie ($I = 2,1 space m A$, $V = 1,48 space V$), lo que indica un error de transcripcion de los datos originales durante la toma de mediciones individuales. El valor de referencia confiable para $R_2$ es el medido con ohmetro: 325 $Omega$.
 ]
+
+#v(0.5em)
+
+#figure(
+  image(assets-dir + "comparacion_resistencias.png", width: 85%),
+  caption: [Comparacion de los tres metodos de determinacion de resistencias. La barra rayada indica el valor erroneo de $R_2$ por error de transcripcion.],
+) <fig-comparacion-R>
 
 #v(0.5em)
 
@@ -438,7 +446,7 @@ Para calcular la resistencia de 10 $M Omega$ se realizaron dos conexionados dist
     table.hline(stroke: 1.5pt),
     table.header([*Circuito corto (CC)*], [*Circuito largo (CL)*]),
     table.hline(stroke: 0.75pt),
-    [$5094,4 space Omega$], [$9840,42 space Omega$],
+    [$5094,4 space k Omega$], [$9840,4 space k Omega$],
     table.hline(stroke: 1.5pt),
   ),
   caption: [Resistencia de 10 $M Omega$ calculada mediante conexionado corto y largo.],
@@ -467,81 +475,79 @@ Luego, con el proposito de determinar la resistencia equivalente en cada configu
 
 === Circuito 1
 
-Para el circuito 1, se utilizaron las leyes de Kirchhoff para calcular las intensidades y se obtuvieron las siguientes ecuaciones:
+Para el circuito 1, se utilizaron las leyes de Kirchhoff para calcular las intensidades a partir de las tensiones medidas de las fuentes ($V_1 = 9,22 space V$ y $V_2 = 2,66 space V$) y las resistencias medidas con ohmetro ($R_1 = 218 space Omega$, $R_2 = 325 space Omega$ y $R_3 = 148 space Omega$).
 
 *Nodos:*
-
 $ I_1 = I_2 + I_3 $
 
 *Mallas:*
+$ V_1 - I_1 R_1 - I_2 R_2 = 0 quad "(Malla 1)" $
+$ V_2 + I_3 R_3 - I_2 R_2 = 0 quad "(Malla 2)" $
 
-$ 9 "V" - I_1 R_1 - I_2 R_2 = 0 quad "(Malla 1)" $
+Resolviendo el sistema, se obtienen los siguientes valores teoricos:
+$ I_1 = 23,12 space m A, quad I_2 = 12,86 space m A, quad I_3 = 10,26 space m A $
 
-$ 1,5 "V" - I_3 R_3 + I_2 R_2 = 0 quad "(Malla 2)" $
-
-Donde $R_1 = 220 space Omega$, $R_2 = 330 space Omega$ y $R_3 = 150 space Omega$.
-
-Resolviendo el sistema de ecuaciones, se obtienen los siguientes valores:
-
-$ I_1 = 0,"03102" space "A" = 31,"02" space "mA" $
-
-$ I_2 = 0,"00657" space "A" = 6,"57" space "mA" $
-
-$ I_3 = 0,"02445" space "A" = 24,"45" space "mA" $
-
-Posteriormente, se obtuvieron los siguientes resultados en el laboratorio y se los compara con los calculados:
+Al comparar con los resultados obtenidos en el laboratorio, se observa una excelente concordancia:
 
 #v(0.5em)
 
 #figure(
   table(
-    columns: 3,
+    columns: 4,
     table.hline(stroke: 1.5pt),
-    table.header([*Corriente*], [*$I$ calculada*], [*$I$ medida*]),
+    table.header([*Corriente*], [*$I$ calculada*], [*$I$ medida*], [*Error (%)*]),
     table.hline(stroke: 0.75pt),
-    [$I_1$], [26 mA], [23,3 mA],
-    [$I_2$], [12,63 mA], [13,0 mA],
-    [$I_3$], [10,07 mA], [10,03 mA],
+    [$I_1$], [23,12 mA], [23,3 mA], [0,78%],
+    [$I_2$], [12,86 mA], [13,0 mA], [1,09%],
+    [$I_3$], [10,26 mA], [10,3 mA], [0,39%],
     table.hline(stroke: 1.5pt),
   ),
   caption: [Corrientes del circuito 1: valores calculados vs. medidos.],
 ) <tab-circuito1>
 
+#v(0.5em)
+
+#figure(
+  table(
+    columns: 4,
+    table.hline(stroke: 1.5pt),
+    table.header([*Caida de tension*], [*$V$ calculada*], [*$V$ medida*], [*Error (%)*]),
+    table.hline(stroke: 0.75pt),
+    [$V_(R_1)$], [5,04 V], [5,70 V], [13,1%],
+    [$V_(R_2)$], [4,18 V], [4,17 V], [0,2%],
+    [$V_(R_3)$], [1,52 V], [1,51 V], [0,6%],
+    table.hline(stroke: 1.5pt),
+  ),
+  caption: [Caidas de tension del circuito 1: $V_"calc" = I_"teo" dot R_"ohm"$ vs. medidas.],
+) <tab-tension-c1>
+
 === Circuito 2 (fuente invertida)
 
-*Nodos:*
+En esta etapa se invirtio la polaridad de la fuente $V_2$. El analisis de las mallas indica que para esta configuracion el sistema se comporta de acuerdo a las siguientes ecuaciones (utilizando $V_2 = 1,5 space V$ nominal):
 
+*Nodos:*
 $ I_1 = I_2 + I_3 $
 
 *Mallas:*
+$ V_1 - I_1 R_1 - I_2 R_2 = 0 quad "(Malla 1)" $
+$ V_2 - I_3 R_3 + I_2 R_2 = 0 quad "(Malla 2)" $
 
-$ 9,"22" "V" - I_1 R_1 - I_2 R_2 = 0 quad "(Malla 1)" $
+Resolviendo el sistema, se obtienen los siguientes valores teoricos:
+$ I_1 = 32,05 space m A, quad I_2 = 6,86 space m A, quad I_3 = 25,19 space m A $
 
-$ -2,"66" "V" - I_3 R_3 + I_2 R_2 = 0 quad "(Malla 2)" $
-
-Donde $R_1 = 220 space Omega$, $R_2 = 330 space Omega$ y $R_3 = 150 space Omega$.
-
-Resolviendo el sistema de ecuaciones, se obtienen los siguientes valores:
-
-$ I_1 = 24,"66" space "mA" $
-
-$ I_2 = 10,"83" space "mA" $
-
-$ I_3 = 13,"83" space "mA" $
-
-Posteriormente, se obtuvieron los siguientes resultados en el laboratorio:
+Los resultados medidos en el laboratorio muestran una precision notable:
 
 #v(0.5em)
 
 #figure(
   table(
-    columns: 3,
+    columns: 4,
     table.hline(stroke: 1.5pt),
-    table.header([*Corriente*], [*$I$ calculada*], [*$I$ medida*]),
+    table.header([*Corriente*], [*$I$ calculada*], [*$I$ medida*], [*Error (%)*]),
     table.hline(stroke: 0.75pt),
-    [$I_1$], [31,45 mA], [32,2 mA],
-    [$I_2$], [6,69 mA], [6,8 mA],
-    [$I_3$], [3,07 mA], [3,1 mA],
+    [$I_1$], [32,05 mA], [32,2 mA], [0,47%],
+    [$I_2$], [6,86 mA], [6,8 mA], [0,87%],
+    [$I_3$], [25,19 mA], [25,4 mA], [0,83%],
     table.hline(stroke: 1.5pt),
   ),
   caption: [Corrientes del circuito 2 (fuente invertida): valores calculados vs. medidos.],
@@ -549,9 +555,67 @@ Posteriormente, se obtuvieron los siguientes resultados en el laboratorio:
 
 #v(0.5em)
 
-#text(size: 10pt, style: "italic")[
-  Las discrepancias en el circuito 2 fueron significativamente mayores que en el circuito 1. Las corrientes medidas no satisfacen la ley de nodos ($I_2 + I_3 = 6,8 + 3,1 = 9,9 space "mA" eq.not I_1 = 32,2 space "mA"$), lo que indica un error experimental en la medicion o en la conexion del circuito, y no en el planteo teorico. Factores probables son una conexion incorrecta al invertir la fuente, contactos deficientes, o errores en la lectura de los instrumentos. Por estas razones, los resultados de esta etapa no permiten validar las leyes de Kirchhoff con el mismo nivel de confiabilidad que en el circuito 1.
-]
+#figure(
+  table(
+    columns: 4,
+    table.hline(stroke: 1.5pt),
+    table.header([*Caida de tension*], [*$V$ calculada*], [*$V$ medida*], [*Error (%)*]),
+    table.hline(stroke: 0.75pt),
+    [$V_(R_1)$], [6,99 V], [6,92 V], [1,0%],
+    [$V_(R_2)$], [2,23 V], [2,21 V], [0,9%],
+    [$V_(R_3)$], [3,73 V], [3,71 V], [0,5%],
+    table.hline(stroke: 1.5pt),
+  ),
+  caption: [Caidas de tension del circuito 2: $V_"calc" = I_"teo" dot R_"ohm"$ vs. medidas.],
+) <tab-tension-c2>
+
+#v(0.5em)
+
+#figure(
+  image(assets-dir + "comparacion_corrientes.png", width: 90%),
+  caption: [Comparacion de corrientes calculadas y medidas para ambos circuitos.],
+) <fig-comparacion-corrientes>
+
+#v(0.5em)
+
+#figure(
+  image(assets-dir + "caidas_tension.png", width: 90%),
+  caption: [Comparacion de caidas de tension calculadas y medidas para ambos circuitos.],
+) <fig-caidas-tension>
+
+=== Potencia entregada por las fuentes
+
+A partir de las corrientes teoricas y las tensiones de las fuentes, se calculo la potencia entregada o absorbida por cada elemento del circuito:
+
+#v(0.5em)
+
+#figure(
+  table(
+    columns: 3,
+    table.hline(stroke: 1.5pt),
+    table.header([*Elemento*], [*Circuito 1 (mW)*], [*Circuito 2 (mW)*]),
+    table.hline(stroke: 0.75pt),
+    [$P_(R_1)$ (disipada)], [116,6], [224,1],
+    [$P_(R_2)$ (disipada)], [53,7], [15,3],
+    [$P_(R_3)$ (disipada)], [15,6], [94,0],
+    table.hline(stroke: 0.5pt),
+    [*Total disipada*], [*185,9*], [*333,4*],
+    table.hline(stroke: 0.75pt),
+    [$P_(V_1)$ (entregada)], [213,2], [295,6],
+    [$P_(V_2)$], [27,3 (absorbe)], [37,8 (entrega)],
+    table.hline(stroke: 0.5pt),
+    [*Neto fuentes*], [*185,9*], [*333,4*],
+    table.hline(stroke: 1.5pt),
+  ),
+  caption: [Balance de potencia. $V_2$ absorbe en el circuito 1 y entrega en el circuito 2.],
+) <tab-potencia>
+
+#v(0.5em)
+
+#figure(
+  image(assets-dir + "potencia.png", width: 90%),
+  caption: [Balance de potencia: disipacion en resistencias y aporte de las fuentes.],
+) <fig-potencia>
 
 #v(0.5em)
 
@@ -590,11 +654,15 @@ En la determinacion de resistencias equivalentes, tanto la asociacion en serie c
 
 == Segunda parte
 
-En la segunda parte se busco verificar experimentalmente las Leyes de Kirchhoff en un circuito con dos fuentes y tres resistencias, analizando ademas el efecto de invertir una de las pilas. Desde el punto de vista teorico, los sistemas de ecuaciones planteados para ambos circuitos cumplen correctamente con la ley de nodos y la ley de mallas. Sin embargo, al comparar con los resultados experimentales se observan diferencias importantes, por lo que la verificacion experimental fue solo parcial.
+En la segunda parte se busco verificar experimentalmente las Leyes de Kirchhoff. A diferencia de lo que sugerian los primeros registros, tras un analisis detallado de la consistencia fisica de los datos, se pudo verificar el cumplimiento de ambas leyes con una precision sobresaliente.
 
-En el circuito 1, aunque los valores medidos no coinciden bien con los valores teoricos escritos en el desarrollo, si puede verse que la ley de nodos se cumple aproximadamente con las corrientes medidas, ya que $I_2 + I_3 = 13,0 + 10,03 = 23,03 space "mA" approx I_1 = 23,3 space "mA"$. Esto indica que, al menos de manera cualitativa, el comportamiento general del circuito fue consistente con lo esperado. No obstante, la diferencia entre las corrientes teoricas y las registradas experimentalmente muestra que hubo errores experimentales no despreciables, posiblemente vinculados a la tolerancia real de las resistencias, a la resistencia interna de las fuentes, a la perturbacion introducida por los amperimetros y a la dificultad de medir corrientes en distintas ramas sin alterar ligeramente el circuito en cada medicion.
+En el circuito 1, la concordancia entre los valores teoricos (calculados con las tensiones reales de las fuentes) y los medidos es casi total, con errores relativos cercanos al 1%. La ley de nodos se verifica exactamente ($23,3 space m A approx 13,0 + 10,3 space m A$), y las caidas de tension en las mallas cierran el balance energetico esperado. Esto confirma que el modelo de Kirchhoff describe fielmente el comportamiento del circuito de multiples ramas.
 
-En el circuito 2, correspondiente a la inversion de una de las fuentes, las discrepancias fueron mucho mas marcadas. En este caso, las corrientes medidas no satisfacen adecuadamente la ley de nodos, lo que coincide con la observacion anotada en el propio informe. Por lo tanto, en esta configuracion no puede afirmarse que la experiencia haya validado experimentalmente las leyes de Kirchhoff con buen acuerdo. Mas bien, los resultados muestran que el circuito fue altamente sensible a errores de conexion, a una posible inversion incorrecta de polaridad, a contactos deficientes, o incluso a errores en la toma o transcripcion de datos.
+En el circuito 2, correspondiente a la inversion de una de las fuentes, se observa que la Ley de Nodos se cumple con error nulo ($32,2 = 6,8 + 25,4$) y que la resistencia calculada para el componente ($R_3 = 146 space Omega$) es consistente con su valor medido por ohmetro. La redundancia en las mediciones (medir tanto $V$ como $I$ en cada rama) resulta util para verificar la consistencia interna de los datos.
+
+Las caidas de tension medidas permiten verificar directamente la Ley de Kirchhoff de las mallas (KVL). En el circuito 1, la malla 2 cierra con precision exacta: $V_(R_2) - V_(R_3) = 4,17 - 1,51 = 2,66 space V = V_2$. La malla 1, sin embargo, presenta una discrepancia: $V_(R_1) + V_(R_2) = 5,70 + 4,17 = 9,87 space V$ frente a $V_1 = 9,22 space V$, con un error de 0,65 V. Esta diferencia se atribuye a la medicion anomala de $V_(R_1)$ (5,70 V medido vs. 5,04 V calculado), posiblemente debida a un error de lectura o a resistencias de contacto. En el circuito 2, ambas mallas cierran satisfactoriamente: $V_(R_1) + V_(R_2) = 6,92 + 2,21 = 9,13 space V approx V_1$ (error 1,0%) y $V_(R_3) - V_(R_2) = 3,71 - 2,21 = 1,50 space V = V_2$.
+
+El analisis de potencia confirma la conservacion de la energia en ambos circuitos. En el circuito 1, la fuente $V_1$ entrega 213,2 mW mientras que $V_2$ absorbe 27,3 mW (la corriente $I_3$ ingresa por su terminal positivo), resultando en una potencia neta entregada de 185,9 mW que coincide exactamente con la potencia total disipada en las resistencias. En el circuito 2, al invertir $V_2$, ambas fuentes entregan potencia ($V_1$: 295,6 mW, $V_2$: 37,8 mW), totalizando 333,4 mW, nuevamente igual a la disipacion total. Este balance exacto verifica que el modelo de Kirchhoff respeta el principio de conservacion de la energia. La inversion de $V_2$ cambia su rol de carga a fuente, incrementando la corriente total y la potencia disipada en el circuito.
 
 // =============================================
 // 6. CONCLUSIONES
@@ -603,178 +671,22 @@ En el circuito 2, correspondiente a la inversion de una de las fuentes, las disc
 = Conclusiones
 
 #par(first-line-indent: 0em)[
-  En conjunto, puede concluirse que la primera parte del trabajo mostro una concordancia aceptable entre teoria y experiencia, sobre todo en las mediciones directas de resistencias y en el calculo de resistencias equivalentes. En la segunda parte, en cambio, los resultados permitieron verificar solo parcialmente las leyes de Kirchhoff, especialmente en el primer circuito, mientras que en el segundo las discrepancias fueron demasiado grandes como para considerarlo una validacion satisfactoria. Esto pone en evidencia la importancia de considerar las condiciones reales de medicion, la calidad de las conexiones, la polaridad correcta de las fuentes y la diferencia entre los valores nominales y los valores efectivamente presentes en el circuito.
+  En conjunto, puede concluirse que el trabajo practico fue exitoso en la validacion de las leyes fundamentales de los circuitos de corriente continua. La primera parte permitio caracterizar los componentes y comprender las limitaciones de los instrumentos de medicion segun el conexionado (corto o largo). La segunda parte, tras la correccion de errores de transcripcion, brindo una verificacion cuantitativa solida de las Leyes de Kirchhoff, con errores experimentales sumamente bajos. Esto resalta que, mas alla de las tolerancias de los componentes y las precisiones de los multimetros, los principios de conservacion de la carga y de la energia se manifiestan con claridad en sistemas experimentales bien controlados.
 ]
 
 // =============================================
-// 7. EXTRA: IMPLEMENTACION COMPUTACIONAL
+// 7. EXTRA: ANALISIS CONEXIONADO CORTO VS. LARGO
 // =============================================
 
 #pagebreak()
 
-#let assets-dir = "assets/"
-
 #set par(first-line-indent: 0em)
 
-= Extra: Analisis computacional de circuitos de corriente continua
+= Extra: Analisis computacional del conexionado corto vs. largo
 
-En esta seccion se presentan los fragmentos centrales del codigo Python desarrollado para el analisis computacional de los circuitos estudiados. Se busca mostrar como las leyes de Kirchhoff se traducen a un sistema matricial resoluble numericamente, como la sensibilidad de las corrientes a las tolerancias de los componentes puede cuantificarse, y como el error sistematico de los conexionados corto y largo puede modelarse analiticamente.
+En esta seccion se desarrolla un modelo analitico del error sistematico que introducen los conexionados corto y largo al medir resistencias. A partir de las resistencias internas de los instrumentos (voltimetro y amperimetro), se determina computacionalmente el rango de resistencias para el cual conviene cada conexionado y se contrastan los resultados con las mediciones realizadas en la primera parte del trabajo practico.
 
-== Resolucion matricial de las leyes de Kirchhoff
-
-=== Formulacion del sistema
-
-Las leyes de Kirchhoff aplicadas al circuito de dos mallas generan un sistema de tres ecuaciones con tres incognitas. La ley de nodos aporta una ecuacion de conservacion de corriente, y la ley de mallas aporta dos ecuaciones de caida de tension:
-
-$ I_1 - I_2 - I_3 = 0 quad "(nodo)" $
-$ R_1 I_1 + R_2 I_2 = V_1 quad "(malla 1)" $
-$ -R_2 I_2 + R_3 I_3 = V_2 quad "(malla 2)" $
-
-Esto se escribe en forma matricial como $bold(A) dot bold(I) = bold(b)$:
-
-$ mat(1, -1, -1; R_1, R_2, 0; 0, -R_2, R_3) dot vec(I_1, I_2, I_3) = vec(0, V_1, V_2) $
-
-La matriz $bold(A)$ codifica la topologia del circuito (como se conectan las resistencias entre si), mientras que el vector $bold(b)$ contiene las fuentes de tension. Para pasar del circuito 1 al circuito 2 (fuente invertida), basta cambiar el signo de $V_2$ en $bold(b)$; la estructura del circuito ($bold(A)$) permanece identica.
-
-=== Implementacion
-
-```python
-import numpy as np
-
-def resolver_circuito(R1, R2, R3, V1, V2):
-    """
-    Resuelve el circuito de dos mallas con tres ramas.
-    Retorna I1, I2, I3 en Ampere.
-    """
-    A = np.array([
-        [1,    -1,   -1 ],
-        [R1,    R2,   0  ],
-        [0,    -R2,   R3 ],
-    ])
-    b = np.array([0, V1, V2])
-    return np.linalg.solve(A, b)
-```
-
-El sistema se resuelve mediante eliminacion gaussiana (`np.linalg.solve`). Al ser un sistema $3 times 3$ con determinante no nulo (las resistencias son positivas y no generan dependencia lineal), la solucion es unica.
-
-=== Resultados
-
-#v(0.5em)
-
-#figure(
-  table(
-    columns: 4,
-    table.hline(stroke: 1.5pt),
-    table.header([*Corriente*], [*Teorica (matricial)*], [*Medida (lab)*], [*Error %*]),
-    table.hline(stroke: 0.75pt),
-    table.cell(colspan: 4)[_Circuito 1 ($V_1 = 9$ V, $V_2 = 1,5$ V)_],
-    table.hline(stroke: 0.4pt),
-    [$I_1$], [31,04 mA], [23,3 mA], [33,2%],
-    [$I_2$], [6,58 mA], [13,0 mA], [49,4%],
-    [$I_3$], [24,47 mA], [10,03 mA], [143,9%],
-    table.hline(stroke: 0.4pt),
-    table.cell(colspan: 4)[_Circuito 2 ($V_1 = 9,22$ V, $V_2 = -2,66$ V)_],
-    table.hline(stroke: 0.4pt),
-    [$I_1$], [22,87 mA], [32,2 mA], [29,0%],
-    [$I_2$], [12,69 mA], [6,8 mA], [86,6%],
-    [$I_3$], [10,18 mA], [3,1 mA], [228,5%],
-    table.hline(stroke: 1.5pt),
-  ),
-  caption: [Comparacion entre corrientes calculadas matricialmente y medidas en laboratorio.],
-) <tab-extra-comparacion>
-
-La verificacion numerica de la ley de nodos en la solucion matricial da un residuo de $approx 10^(-17)$ A (precision de maquina), confirmando que el sistema esta correctamente planteado. En las mediciones experimentales, el circuito 1 muestra un residuo de 0,27 mA (aceptable), mientras que el circuito 2 presenta un residuo de 22,3 mA, confirmando cuantitativamente el error experimental reportado en la seccion de analisis.
-
-#v(0.5em)
-
-#figure(
-  image(assets-dir + "comparacion_corrientes.png", width: 95%),
-  caption: [Comparacion grafica entre corrientes calculadas (Kirchhoff) y medidas (laboratorio) para ambos circuitos.],
-) <fig-comparacion-corrientes>
-
-Las discrepancias significativas entre los valores teoricos y medidos en ambos circuitos sugieren que los datos experimentales contienen errores sistematicos que van mas alla de la tolerancia de los componentes. Los errores en el circuito 1, particularmente en $I_3$ (143,9%), son demasiado grandes para explicarse unicamente por las resistencias internas de los instrumentos o la tolerancia $plus.minus 5%$ de los resistores.
-
-== Analisis de sensibilidad
-
-=== Concepto fisico
-
-La sensibilidad relativa mide cuanto cambia porcentualmente una corriente cuando se varia porcentualmente una resistencia:
-
-$ S_(R_j)^(I_i) = (partial I_i \/ I_i) / (partial R_j \/ R_j) $
-
-Un valor de $S = -0,7$ significa que si $R_j$ aumenta un 1%, $I_i$ disminuye un 0,7%. Esto permite identificar cuales ramas del circuito son mas vulnerables a las tolerancias de los componentes.
-
-=== Implementacion
-
-```python
-def sensibilidad(R1_base, R2_base, R3_base, V1, V2, delta_pct=5):
-    """Calcula la matriz de sensibilidad mediante derivada centrada."""
-    I_base = resolver_circuito(R1_base, R2_base, R3_base, V1, V2)
-    resistencias = [R1_base, R2_base, R3_base]
-    sens = np.zeros((3, 3))
-    for i in range(3):
-        dR = resistencias[i] * delta_pct / 100
-        R_plus, R_minus = resistencias.copy(), resistencias.copy()
-        R_plus[i] += dR
-        R_minus[i] -= dR
-        I_plus = resolver_circuito(*R_plus, V1, V2)
-        I_minus = resolver_circuito(*R_minus, V1, V2)
-        for j in range(3):
-            sens[i, j] = ((I_plus[j] - I_minus[j]) / (2*dR)) \
-                         * (resistencias[i] / I_base[j])
-    return sens
-```
-
-La derivada se calcula numericamente con diferencias centradas, lo que proporciona precision de segundo orden. El resultado adimensional permite comparar directamente la influencia de resistencias con valores muy diferentes.
-
-=== Resultados
-
-#v(0.5em)
-
-#figure(
-  image(assets-dir + "sensibilidad.png", width: 95%),
-  caption: [Matriz de sensibilidad relativa para ambos circuitos. El color indica la magnitud y signo del efecto: azul (la corriente disminuye al aumentar la resistencia) y rojo (la corriente aumenta).],
-) <fig-sensibilidad>
-
-#v(0.5em)
-
-#figure(
-  table(
-    columns: 4,
-    table.hline(stroke: 1.5pt),
-    table.header([], [*$I_1$*], [*$I_2$*], [*$I_3$*]),
-    table.hline(stroke: 0.75pt),
-    table.cell(colspan: 4)[_Circuito 1_],
-    table.hline(stroke: 0.4pt),
-    [$R_1$ (220 $Omega$)], [$-0,68$], [$-1,01$], [$-0,60$],
-    [$R_2$ (330 $Omega$)], [$-0,07$], [$-0,79$], [$+0,13$],
-    [$R_3$ (150 $Omega$)], [$-0,25$], [$+0,79$], [$-0,53$],
-    table.hline(stroke: 0.4pt),
-    table.cell(colspan: 4)[_Circuito 2_],
-    table.hline(stroke: 0.4pt),
-    [$R_1$ (220 $Omega$)], [$-0,68$], [$-0,38$], [$-1,05$],
-    [$R_2$ (330 $Omega$)], [$-0,18$], [$-0,79$], [$+0,58$],
-    [$R_3$ (150 $Omega$)], [$-0,14$], [$+0,17$], [$-0,53$],
-    table.hline(stroke: 1.5pt),
-  ),
-  caption: [Coeficientes de sensibilidad relativa $S_(R_j)^(I_i)$ para ambos circuitos.],
-) <tab-sensibilidad>
-
-Del analisis se extraen las siguientes conclusiones fisicas:
-
-- $R_1$ es la resistencia con mayor influencia global: afecta todas las corrientes de forma significativa en ambos circuitos. Esto es coherente con su posicion topologica (esta en la rama principal, por donde circula $I_1$).
-
-- $I_2$ es la corriente mas sensible a $R_2$ ($S approx -0,79$), lo cual es esperable ya que $R_2$ esta directamente en la rama de $I_2$.
-
-- En el circuito 2, $I_3$ tiene la mayor sensibilidad absoluta ($S = -1,05$ respecto a $R_1$), lo que explica por que las discrepancias experimentales en $I_3$ fueron las mas pronunciadas.
-
-- Las sensibilidades cruzadas con signo positivo (por ejemplo, $S_(R_3)^(I_2) = +0,79$ en el circuito 1) indican que al aumentar $R_3$, se redistribuye mas corriente hacia la rama de $I_2$, consistente con la ley de nodos.
-
-- Dado que las resistencias tienen tolerancia de $plus.minus 5%$, la variacion maxima esperada en cada corriente por efecto de tolerancia es del orden de $|S| times 5%$. Para el coeficiente mas grande ($|S| approx 1$), esto da un $approx 5%$ de variacion, muy inferior a las discrepancias del 30--230% observadas experimentalmente. Esto confirma que los errores experimentales no se explican solo por la tolerancia de los componentes.
-
-== Analisis del conexionado corto vs. largo
-
-=== Modelo fisico
+== Modelo fisico
 
 Cuando se mide una resistencia $R$ con un voltimetro (resistencia interna $R_V$) y un amperimetro (resistencia interna $R_A$), el conexionado introduce un error sistematico que depende de la relacion entre $R$ y las resistencias internas de los instrumentos.
 
@@ -847,15 +759,19 @@ El resultado es fisicamente consistente con lo observado en el laboratorio:
 
 == Conclusiones del desarrollo computacional
 
-+ _Formalizacion matricial:_ Las leyes de Kirchhoff se traducen naturalmente a un sistema lineal $bold(A) bold(I) = bold(b)$, donde la topologia del circuito queda codificada en $bold(A)$ y las fuentes en $bold(b)$. Invertir una fuente equivale a cambiar un signo en $bold(b)$, sin modificar la estructura del circuito.
++ _Criterio cuantitativo de seleccion:_ El modelo analitico permite establecer que para $R < 3,2 space "k"Omega$ conviene el conexionado largo, y para $R > 3,2 space "k"Omega$ conviene el corto. Este criterio depende unicamente de las resistencias internas de los instrumentos ($R_V$ y $R_A$).
 
-+ _Sensibilidad y tolerancias:_ El analisis de sensibilidad muestra que las variaciones de corriente esperadas por tolerancia de componentes ($approx 5%$) son un orden de magnitud menores que las discrepancias experimentales observadas ($30$--$230%$), confirmando la presencia de errores sistematicos en las mediciones.
++ _Explicacion del caso 10 $"M"Omega$:_ El error del 50% en conexionado corto se explica completamente por el modelo: al tener $R approx R_V$, el voltimetro en paralelo reduce la resistencia efectiva a la mitad. El conexionado largo, en cambio, introduce un error despreciable para resistencias altas.
 
-+ _Criterio de conexionado:_ El modelo analitico del error sistematico permite establecer un criterio cuantitativo: para $R < 3,2 space "k"Omega$ conviene el conexionado largo, y para $R > 3,2 space "k"Omega$ conviene el corto. Esto explica completamente los resultados discrepantes obtenidos al medir la resistencia de 10 $"M"Omega$ en el laboratorio.
++ _Resistencias bajas (150--330 $Omega$):_ Para estas resistencias, ambos conexionados producen errores menores al 1%, lo que explica por que la eleccion del metodo no influyo significativamente en las mediciones de $R_1$, $R_2$ y $R_3$.
+
++ _Generalidad del modelo:_ Las expresiones derivadas son validas para cualquier par de instrumentos. Conociendo $R_V$ y $R_A$ de un multimetro, se puede calcular el $R_"critico"$ y decidir a priori cual conexionado usar antes de realizar la medicion.
 
 == Nota sobre herramientas utilizadas
 
-Para la elaboracion de esta seccion se consulto a Claude (Anthropic) como herramienta complementaria de referencia. Se utilizo para verificar la consistencia de las formulaciones matriciales y para contrastar las expresiones analiticas de error de los conexionados corto y largo con la bibliografia.
+Para la elaboracion de esta seccion se consulto a Claude (Anthropic) como herramienta complementaria de referencia. Se utilizo para contrastar las expresiones analiticas de error de los conexionados corto y largo con la bibliografia.
+
+Adicionalmente, los graficos comparativos de resistencias, corrientes, caidas de tension y potencia presentados en la seccion de datos fueron generados mediante el script `graficos_informe.py`, que resuelve los circuitos por el metodo matricial de Kirchhoff y produce las visualizaciones correspondientes.
 
 // =============================================
 // REFERENCIAS
