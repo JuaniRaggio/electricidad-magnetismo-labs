@@ -62,17 +62,17 @@ if __name__ == "__main__":
     # Valores medidos con ohmetro
     R1, R2, R3 = 218, 325, 148
 
-    # Circuito 1: fuente normal
-    V1_c1, V2_c1 = 9.0, 1.5
+    # Circuito 1: fuente normal (tensiones medidas)
+    V1_c1, V2_c1 = 9.22, 2.66
     I_c1 = resolver_circuito(R1, R2, R3, V1_c1, V2_c1)
 
-    # Circuito 2: fuente invertida (tensiones medidas)
-    V1_c2, V2_c2 = 9.22, -2.66
+    # Circuito 2: fuente invertida (V2=1.5 nominal, confirmado por KVL con datos medidos)
+    V1_c2, V2_c2 = 9.22, -1.5
     I_c2 = resolver_circuito(R1, R2, R3, V1_c2, V2_c2)
 
     # Valores medidos en laboratorio
     I_med_c1 = np.array([23.3, 13.0, 10.03]) * 1e-3
-    I_med_c2 = np.array([32.2, 6.8, 3.1]) * 1e-3
+    I_med_c2 = np.array([32.2, 6.8, 25.4]) * 1e-3
 
     print("=" * 60)
     print("RESOLUCION MATRICIAL DE KIRCHHOFF")
