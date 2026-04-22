@@ -90,6 +90,7 @@
 #show raw.where(block: true): set text(size: 9pt)
 
 #let img-dir = "images/"
+#let assets-dir = "assets/"
 
 // =============================================
 // CARATULA (formato obligatorio de la catedra)
@@ -428,6 +429,13 @@ Se armo un circuito con dos fuentes y tres resistencias (@fig-circuito-parte2), 
 
 #v(0.5em)
 
+#figure(
+  image(assets-dir + "comparacion_resistencias.png", width: 85%),
+  caption: [Comparacion de los tres metodos de determinacion de resistencias. La barra rayada indica el valor erroneo de $R_2$ por error de transcripcion.],
+) <fig-comparacion-R>
+
+#v(0.5em)
+
 Para calcular la resistencia de 10 $M Omega$ se realizaron dos conexionados distintos, corto y largo:
 
 #v(0.5em)
@@ -497,6 +505,22 @@ Al comparar con los resultados obtenidos en el laboratorio, se observa una excel
   caption: [Corrientes del circuito 1: valores calculados vs. medidos.],
 ) <tab-circuito1>
 
+#v(0.5em)
+
+#figure(
+  table(
+    columns: 4,
+    table.hline(stroke: 1.5pt),
+    table.header([*Caida de tension*], [*$V$ calculada*], [*$V$ medida*], [*Error (%)*]),
+    table.hline(stroke: 0.75pt),
+    [$V_(R_1)$], [5,04 V], [5,70 V], [13,1%],
+    [$V_(R_2)$], [4,18 V], [4,17 V], [0,2%],
+    [$V_(R_3)$], [1,52 V], [1,51 V], [0,6%],
+    table.hline(stroke: 1.5pt),
+  ),
+  caption: [Caidas de tension del circuito 1: $V_"calc" = I_"teo" dot R_"ohm"$ vs. medidas.],
+) <tab-tension-c1>
+
 === Circuito 2 (fuente invertida)
 
 En esta etapa se invirtio la polaridad de la fuente $V_2$. El analisis de las mallas indica que para esta configuracion el sistema se comporta de acuerdo a las siguientes ecuaciones (utilizando $V_2 = 1,5 space V$ nominal):
@@ -536,6 +560,68 @@ Los resultados medidos en el laboratorio (corrigiendo el error de registro en $I
 ]
 
 #v(0.5em)
+
+#figure(
+  table(
+    columns: 4,
+    table.hline(stroke: 1.5pt),
+    table.header([*Caida de tension*], [*$V$ calculada*], [*$V$ medida*], [*Error (%)*]),
+    table.hline(stroke: 0.75pt),
+    [$V_(R_1)$], [6,99 V], [6,92 V], [1,0%],
+    [$V_(R_2)$], [2,23 V], [2,21 V], [0,9%],
+    [$V_(R_3)$], [3,73 V], [3,71 V], [0,5%],
+    table.hline(stroke: 1.5pt),
+  ),
+  caption: [Caidas de tension del circuito 2: $V_"calc" = I_"teo" dot R_"ohm"$ vs. medidas.],
+) <tab-tension-c2>
+
+#v(0.5em)
+
+#figure(
+  image(assets-dir + "comparacion_corrientes.png", width: 90%),
+  caption: [Comparacion de corrientes calculadas y medidas para ambos circuitos.],
+) <fig-comparacion-corrientes>
+
+#v(0.5em)
+
+#figure(
+  image(assets-dir + "caidas_tension.png", width: 90%),
+  caption: [Comparacion de caidas de tension calculadas y medidas para ambos circuitos.],
+) <fig-caidas-tension>
+
+=== Potencia entregada por las fuentes
+
+A partir de las corrientes teoricas y las tensiones de las fuentes, se calculo la potencia entregada o absorbida por cada elemento del circuito:
+
+#v(0.5em)
+
+#figure(
+  table(
+    columns: 3,
+    table.hline(stroke: 1.5pt),
+    table.header([*Elemento*], [*Circuito 1 (mW)*], [*Circuito 2 (mW)*]),
+    table.hline(stroke: 0.75pt),
+    [$P_(R_1)$ (disipada)], [116,6], [224,1],
+    [$P_(R_2)$ (disipada)], [53,7], [15,3],
+    [$P_(R_3)$ (disipada)], [15,6], [94,0],
+    table.hline(stroke: 0.5pt),
+    [*Total disipada*], [*185,9*], [*333,4*],
+    table.hline(stroke: 0.75pt),
+    [$P_(V_1)$ (entregada)], [213,2], [295,6],
+    [$P_(V_2)$], [27,3 (absorbe)], [37,8 (entrega)],
+    table.hline(stroke: 0.5pt),
+    [*Neto fuentes*], [*185,9*], [*333,4*],
+    table.hline(stroke: 1.5pt),
+  ),
+  caption: [Balance de potencia. $V_2$ absorbe en el circuito 1 y entrega en el circuito 2.],
+) <tab-potencia>
+
+#v(0.5em)
+
+#figure(
+  image(assets-dir + "potencia.png", width: 90%),
+  caption: [Balance de potencia: disipacion en resistencias y aporte de las fuentes.],
+) <fig-potencia>
 
 #v(0.5em)
 
@@ -580,6 +666,10 @@ En el circuito 1, la concordancia entre los valores teoricos (calculados con las
 
 En el circuito 2, correspondiente a la inversion de una de las fuentes, la validacion inicial se vio dificultada por un error en el registro de la corriente $I_3$. Sin embargo, al recuperar los valores correctos de la experiencia (25,4 m A), se observa que la Ley de Nodos se cumple con error nulo ($32,2 = 6,8 + 25,4$) y que la resistencia calculada para el componente ($R_3 = 146 space Omega$) es consistente con su valor medido por ohmetro. Este caso demuestra la importancia de la redundancia en las mediciones (medir tanto $V$ como $I$ en cada rama) para detectar y corregir errores de lectura en tiempo real.
 
+Las caidas de tension medidas permiten verificar directamente la Ley de Kirchhoff de las mallas (KVL). En el circuito 1, la malla 2 cierra con precision exacta: $V_(R_2) - V_(R_3) = 4,17 - 1,51 = 2,66 space V = V_2$. La malla 1, sin embargo, presenta una discrepancia: $V_(R_1) + V_(R_2) = 5,70 + 4,17 = 9,87 space V$ frente a $V_1 = 9,22 space V$, con un error de 0,65 V. Esta diferencia se atribuye a la medicion anomala de $V_(R_1)$ (5,70 V medido vs. 5,04 V calculado), posiblemente debida a un error de lectura o a resistencias de contacto. En el circuito 2, ambas mallas cierran satisfactoriamente: $V_(R_1) + V_(R_2) = 6,92 + 2,21 = 9,13 space V approx V_1$ (error 1,0%) y $V_(R_3) - V_(R_2) = 3,71 - 2,21 = 1,50 space V = V_2$.
+
+El analisis de potencia confirma la conservacion de la energia en ambos circuitos. En el circuito 1, la fuente $V_1$ entrega 213,2 mW mientras que $V_2$ absorbe 27,3 mW (la corriente $I_3$ ingresa por su terminal positivo), resultando en una potencia neta entregada de 185,9 mW que coincide exactamente con la potencia total disipada en las resistencias. En el circuito 2, al invertir $V_2$, ambas fuentes entregan potencia ($V_1$: 295,6 mW, $V_2$: 37,8 mW), totalizando 333,4 mW, nuevamente igual a la disipacion total. Este balance exacto verifica que el modelo de Kirchhoff respeta el principio de conservacion de la energia. La inversion de $V_2$ cambia su rol de carga a fuente, incrementando la corriente total y la potencia disipada en el circuito.
+
 // =============================================
 // 6. CONCLUSIONES
 // =============================================
@@ -595,8 +685,6 @@ En el circuito 2, correspondiente a la inversion de una de las fuentes, la valid
 // =============================================
 
 #pagebreak()
-
-#let assets-dir = "assets/"
 
 #set par(first-line-indent: 0em)
 
@@ -688,6 +776,8 @@ El resultado es fisicamente consistente con lo observado en el laboratorio:
 == Nota sobre herramientas utilizadas
 
 Para la elaboracion de esta seccion se consulto a Claude (Anthropic) como herramienta complementaria de referencia. Se utilizo para contrastar las expresiones analiticas de error de los conexionados corto y largo con la bibliografia.
+
+Adicionalmente, los graficos comparativos de resistencias, corrientes, caidas de tension y potencia presentados en la seccion de datos fueron generados mediante el script `graficos_informe.py`, que resuelve los circuitos por el metodo matricial de Kirchhoff y produce las visualizaciones correspondientes.
 
 // =============================================
 // REFERENCIAS
