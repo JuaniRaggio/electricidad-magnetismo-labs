@@ -607,7 +607,7 @@ En el circuito 2, correspondiente a la inversion de una de las fuentes, las disc
 ]
 
 // =============================================
-// 7. EXTRA: IMPLEMENTACION COMPUTACIONAL
+// 7. EXTRA: ANALISIS CONEXIONADO CORTO VS. LARGO
 // =============================================
 
 #pagebreak()
@@ -616,165 +616,11 @@ En el circuito 2, correspondiente a la inversion de una de las fuentes, las disc
 
 #set par(first-line-indent: 0em)
 
-= Extra: Analisis computacional de circuitos de corriente continua
+= Extra: Analisis computacional del conexionado corto vs. largo
 
-En esta seccion se presentan los fragmentos centrales del codigo Python desarrollado para el analisis computacional de los circuitos estudiados. Se busca mostrar como las leyes de Kirchhoff se traducen a un sistema matricial resoluble numericamente, como la sensibilidad de las corrientes a las tolerancias de los componentes puede cuantificarse, y como el error sistematico de los conexionados corto y largo puede modelarse analiticamente.
+En esta seccion se desarrolla un modelo analitico del error sistematico que introducen los conexionados corto y largo al medir resistencias. A partir de las resistencias internas de los instrumentos (voltimetro y amperimetro), se determina computacionalmente el rango de resistencias para el cual conviene cada conexionado y se contrastan los resultados con las mediciones realizadas en la primera parte del trabajo practico.
 
-== Resolucion matricial de las leyes de Kirchhoff
-
-=== Formulacion del sistema
-
-Las leyes de Kirchhoff aplicadas al circuito de dos mallas generan un sistema de tres ecuaciones con tres incognitas. La ley de nodos aporta una ecuacion de conservacion de corriente, y la ley de mallas aporta dos ecuaciones de caida de tension:
-
-$ I_1 - I_2 - I_3 = 0 quad "(nodo)" $
-$ R_1 I_1 + R_2 I_2 = V_1 quad "(malla 1)" $
-$ -R_2 I_2 + R_3 I_3 = V_2 quad "(malla 2)" $
-
-Esto se escribe en forma matricial como $bold(A) dot bold(I) = bold(b)$:
-
-$ mat(1, -1, -1; R_1, R_2, 0; 0, -R_2, R_3) dot vec(I_1, I_2, I_3) = vec(0, V_1, V_2) $
-
-La matriz $bold(A)$ codifica la topologia del circuito (como se conectan las resistencias entre si), mientras que el vector $bold(b)$ contiene las fuentes de tension. Para pasar del circuito 1 al circuito 2 (fuente invertida), basta cambiar el signo de $V_2$ en $bold(b)$; la estructura del circuito ($bold(A)$) permanece identica.
-
-=== Implementacion
-
-```python
-import numpy as np
-
-def resolver_circuito(R1, R2, R3, V1, V2):
-    """
-    Resuelve el circuito de dos mallas con tres ramas.
-    Retorna I1, I2, I3 en Ampere.
-    """
-    A = np.array([
-        [1,    -1,   -1 ],
-        [R1,    R2,   0  ],
-        [0,    -R2,   R3 ],
-    ])
-    b = np.array([0, V1, V2])
-    return np.linalg.solve(A, b)
-```
-
-El sistema se resuelve mediante eliminacion gaussiana (`np.linalg.solve`). Al ser un sistema $3 times 3$ con determinante no nulo (las resistencias son positivas y no generan dependencia lineal), la solucion es unica.
-
-=== Resultados
-
-#v(0.5em)
-
-#figure(
-  table(
-    columns: 4,
-    table.hline(stroke: 1.5pt),
-    table.header([*Corriente*], [*Teorica (matricial)*], [*Medida (lab)*], [*Error %*]),
-    table.hline(stroke: 0.75pt),
-    table.cell(colspan: 4)[_Circuito 1 ($V_1 = 9$ V, $V_2 = 1,5$ V)_],
-    table.hline(stroke: 0.4pt),
-    [$I_1$], [31,04 mA], [23,3 mA], [33,2%],
-    [$I_2$], [6,58 mA], [13,0 mA], [49,4%],
-    [$I_3$], [24,47 mA], [10,03 mA], [143,9%],
-    table.hline(stroke: 0.4pt),
-    table.cell(colspan: 4)[_Circuito 2 ($V_1 = 9,22$ V, $V_2 = -2,66$ V)_],
-    table.hline(stroke: 0.4pt),
-    [$I_1$], [22,87 mA], [32,2 mA], [29,0%],
-    [$I_2$], [12,69 mA], [6,8 mA], [86,6%],
-    [$I_3$], [10,18 mA], [3,1 mA], [228,5%],
-    table.hline(stroke: 1.5pt),
-  ),
-  caption: [Comparacion entre corrientes calculadas matricialmente y medidas en laboratorio.],
-) <tab-extra-comparacion>
-
-La verificacion numerica de la ley de nodos en la solucion matricial da un residuo de $approx 10^(-17)$ A (precision de maquina), confirmando que el sistema esta correctamente planteado. En las mediciones experimentales, el circuito 1 muestra un residuo de 0,27 mA (aceptable), mientras que el circuito 2 presenta un residuo de 22,3 mA, confirmando cuantitativamente el error experimental reportado en la seccion de analisis.
-
-#v(0.5em)
-
-#figure(
-  image(assets-dir + "comparacion_corrientes.png", width: 95%),
-  caption: [Comparacion grafica entre corrientes calculadas (Kirchhoff) y medidas (laboratorio) para ambos circuitos.],
-) <fig-comparacion-corrientes>
-
-Las discrepancias significativas entre los valores teoricos y medidos en ambos circuitos sugieren que los datos experimentales contienen errores sistematicos que van mas alla de la tolerancia de los componentes. Los errores en el circuito 1, particularmente en $I_3$ (143,9%), son demasiado grandes para explicarse unicamente por las resistencias internas de los instrumentos o la tolerancia $plus.minus 5%$ de los resistores.
-
-== Analisis de sensibilidad
-
-=== Concepto fisico
-
-La sensibilidad relativa mide cuanto cambia porcentualmente una corriente cuando se varia porcentualmente una resistencia:
-
-$ S_(R_j)^(I_i) = (partial I_i \/ I_i) / (partial R_j \/ R_j) $
-
-Un valor de $S = -0,7$ significa que si $R_j$ aumenta un 1%, $I_i$ disminuye un 0,7%. Esto permite identificar cuales ramas del circuito son mas vulnerables a las tolerancias de los componentes.
-
-=== Implementacion
-
-```python
-def sensibilidad(R1_base, R2_base, R3_base, V1, V2, delta_pct=5):
-    """Calcula la matriz de sensibilidad mediante derivada centrada."""
-    I_base = resolver_circuito(R1_base, R2_base, R3_base, V1, V2)
-    resistencias = [R1_base, R2_base, R3_base]
-    sens = np.zeros((3, 3))
-    for i in range(3):
-        dR = resistencias[i] * delta_pct / 100
-        R_plus, R_minus = resistencias.copy(), resistencias.copy()
-        R_plus[i] += dR
-        R_minus[i] -= dR
-        I_plus = resolver_circuito(*R_plus, V1, V2)
-        I_minus = resolver_circuito(*R_minus, V1, V2)
-        for j in range(3):
-            sens[i, j] = ((I_plus[j] - I_minus[j]) / (2*dR)) \
-                         * (resistencias[i] / I_base[j])
-    return sens
-```
-
-La derivada se calcula numericamente con diferencias centradas, lo que proporciona precision de segundo orden. El resultado adimensional permite comparar directamente la influencia de resistencias con valores muy diferentes.
-
-=== Resultados
-
-#v(0.5em)
-
-#figure(
-  image(assets-dir + "sensibilidad.png", width: 95%),
-  caption: [Matriz de sensibilidad relativa para ambos circuitos. El color indica la magnitud y signo del efecto: azul (la corriente disminuye al aumentar la resistencia) y rojo (la corriente aumenta).],
-) <fig-sensibilidad>
-
-#v(0.5em)
-
-#figure(
-  table(
-    columns: 4,
-    table.hline(stroke: 1.5pt),
-    table.header([], [*$I_1$*], [*$I_2$*], [*$I_3$*]),
-    table.hline(stroke: 0.75pt),
-    table.cell(colspan: 4)[_Circuito 1_],
-    table.hline(stroke: 0.4pt),
-    [$R_1$ (220 $Omega$)], [$-0,68$], [$-1,01$], [$-0,60$],
-    [$R_2$ (330 $Omega$)], [$-0,07$], [$-0,79$], [$+0,13$],
-    [$R_3$ (150 $Omega$)], [$-0,25$], [$+0,79$], [$-0,53$],
-    table.hline(stroke: 0.4pt),
-    table.cell(colspan: 4)[_Circuito 2_],
-    table.hline(stroke: 0.4pt),
-    [$R_1$ (220 $Omega$)], [$-0,68$], [$-0,38$], [$-1,05$],
-    [$R_2$ (330 $Omega$)], [$-0,18$], [$-0,79$], [$+0,58$],
-    [$R_3$ (150 $Omega$)], [$-0,14$], [$+0,17$], [$-0,53$],
-    table.hline(stroke: 1.5pt),
-  ),
-  caption: [Coeficientes de sensibilidad relativa $S_(R_j)^(I_i)$ para ambos circuitos.],
-) <tab-sensibilidad>
-
-Del analisis se extraen las siguientes conclusiones fisicas:
-
-- $R_1$ es la resistencia con mayor influencia global: afecta todas las corrientes de forma significativa en ambos circuitos. Esto es coherente con su posicion topologica (esta en la rama principal, por donde circula $I_1$).
-
-- $I_2$ es la corriente mas sensible a $R_2$ ($S approx -0,79$), lo cual es esperable ya que $R_2$ esta directamente en la rama de $I_2$.
-
-- En el circuito 2, $I_3$ tiene la mayor sensibilidad absoluta ($S = -1,05$ respecto a $R_1$), lo que explica por que las discrepancias experimentales en $I_3$ fueron las mas pronunciadas.
-
-- Las sensibilidades cruzadas con signo positivo (por ejemplo, $S_(R_3)^(I_2) = +0,79$ en el circuito 1) indican que al aumentar $R_3$, se redistribuye mas corriente hacia la rama de $I_2$, consistente con la ley de nodos.
-
-- Dado que las resistencias tienen tolerancia de $plus.minus 5%$, la variacion maxima esperada en cada corriente por efecto de tolerancia es del orden de $|S| times 5%$. Para el coeficiente mas grande ($|S| approx 1$), esto da un $approx 5%$ de variacion, muy inferior a las discrepancias del 30--230% observadas experimentalmente. Esto confirma que los errores experimentales no se explican solo por la tolerancia de los componentes.
-
-== Analisis del conexionado corto vs. largo
-
-=== Modelo fisico
+== Modelo fisico
 
 Cuando se mide una resistencia $R$ con un voltimetro (resistencia interna $R_V$) y un amperimetro (resistencia interna $R_A$), el conexionado introduce un error sistematico que depende de la relacion entre $R$ y las resistencias internas de los instrumentos.
 
@@ -847,15 +693,17 @@ El resultado es fisicamente consistente con lo observado en el laboratorio:
 
 == Conclusiones del desarrollo computacional
 
-+ _Formalizacion matricial:_ Las leyes de Kirchhoff se traducen naturalmente a un sistema lineal $bold(A) bold(I) = bold(b)$, donde la topologia del circuito queda codificada en $bold(A)$ y las fuentes en $bold(b)$. Invertir una fuente equivale a cambiar un signo en $bold(b)$, sin modificar la estructura del circuito.
++ _Criterio cuantitativo de seleccion:_ El modelo analitico permite establecer que para $R < 3,2 space "k"Omega$ conviene el conexionado largo, y para $R > 3,2 space "k"Omega$ conviene el corto. Este criterio depende unicamente de las resistencias internas de los instrumentos ($R_V$ y $R_A$).
 
-+ _Sensibilidad y tolerancias:_ El analisis de sensibilidad muestra que las variaciones de corriente esperadas por tolerancia de componentes ($approx 5%$) son un orden de magnitud menores que las discrepancias experimentales observadas ($30$--$230%$), confirmando la presencia de errores sistematicos en las mediciones.
++ _Explicacion del caso 10 $"M"Omega$:_ El error del 50% en conexionado corto se explica completamente por el modelo: al tener $R approx R_V$, el voltimetro en paralelo reduce la resistencia efectiva a la mitad. El conexionado largo, en cambio, introduce un error despreciable para resistencias altas.
 
-+ _Criterio de conexionado:_ El modelo analitico del error sistematico permite establecer un criterio cuantitativo: para $R < 3,2 space "k"Omega$ conviene el conexionado largo, y para $R > 3,2 space "k"Omega$ conviene el corto. Esto explica completamente los resultados discrepantes obtenidos al medir la resistencia de 10 $"M"Omega$ en el laboratorio.
++ _Resistencias bajas (150--330 $Omega$):_ Para estas resistencias, ambos conexionados producen errores menores al 1%, lo que explica por que la eleccion del metodo no influyo significativamente en las mediciones de $R_1$, $R_2$ y $R_3$.
+
++ _Generalidad del modelo:_ Las expresiones derivadas son validas para cualquier par de instrumentos. Conociendo $R_V$ y $R_A$ de un multimetro, se puede calcular el $R_"critico"$ y decidir a priori cual conexionado usar antes de realizar la medicion.
 
 == Nota sobre herramientas utilizadas
 
-Para la elaboracion de esta seccion se consulto a Claude (Anthropic) como herramienta complementaria de referencia. Se utilizo para verificar la consistencia de las formulaciones matriciales y para contrastar las expresiones analiticas de error de los conexionados corto y largo con la bibliografia.
+Para la elaboracion de esta seccion se consulto a Claude (Anthropic) como herramienta complementaria de referencia. Se utilizo para contrastar las expresiones analiticas de error de los conexionados corto y largo con la bibliografia.
 
 // =============================================
 // REFERENCIAS
