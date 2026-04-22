@@ -62,8 +62,8 @@ if __name__ == "__main__":
     # Valores medidos con ohmetro
     R1, R2, R3 = 218, 325, 148
 
-    # Circuito 1: fuente normal (tensiones medidas)
-    V1_c1, V2_c1 = 9.22, 2.66
+    # Circuito 1: fuente normal (tensiones medidas, signo por convencion de malla)
+    V1_c1, V2_c1 = 9.22, -2.66
     I_c1 = resolver_circuito(R1, R2, R3, V1_c1, V2_c1)
 
     # Circuito 2: fuente invertida (V2=1.5 nominal, confirmado por KVL con datos medidos)
