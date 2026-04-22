@@ -782,5 +782,3 @@ Adicionalmente, los graficos comparativos de resistencias, corrientes, caidas de
 #set enum(numbering: "[1]")
 
 + R. A. Serway y J. W. Jewett, _Fisica para ciencias e ingenieria_, 10ma ed., Cengage Learning, 2018.
-
-+ Anthropic, _Claude_ (modelo de lenguaje), 2024--2026. Herramienta de asistencia complementaria para la verificacion de modelos fisicos.
