@@ -343,7 +343,7 @@ $ sum_(i=1)^(n) I_i = 0 $ <eq-nodos>
 #v(0.5em)
 
 #figure(
-  image(img-dir + "image11.png", width: 90%),
+  image(img-dir + "conexionado_corto_largo.png", width: 90%),
   caption: [Conexionado corto (izquierda) y conexionado largo (derecha).],
 ) <fig-conexionados>
 
@@ -357,11 +357,11 @@ En esta parte se analizaron las configuraciones en serie y en paralelo empleando
   columns: (1fr, 1fr),
   gutter: 1em,
   figure(
-    image(img-dir + "image12.png", width: 90%),
+    image(img-dir + "circuito_paralelo.png", width: 90%),
     caption: [Circuito en paralelo.],
   ),
   figure(
-    image(img-dir + "image9.png", width: 90%),
+    image(img-dir + "circuito_serie.png", width: 90%),
     caption: [Circuito en serie.],
   ),
 )
@@ -389,7 +389,7 @@ Se armo un circuito con dos fuentes y tres resistencias (@fig-circuito-parte2), 
 #v(0.5em)
 
 #figure(
-  image(img-dir + "image10.png", width: 90%),
+  image(img-dir + "circuito_dos_mallas.png", width: 90%),
   caption: [Diagrama del primer circuito utilizado en la segunda parte.],
 ) <fig-circuito-parte2>
 
