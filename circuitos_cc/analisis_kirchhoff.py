@@ -67,7 +67,7 @@ if __name__ == "__main__":
     I_c1 = resolver_circuito(R1, R2, R3, V1_c1, V2_c1)
 
     # Circuito 2: fuente invertida (V2=1.5 nominal, confirmado por KVL con datos medidos)
-    V1_c2, V2_c2 = 9.22, -1.5
+    V1_c2, V2_c2 = 9.22, 1.5
     I_c2 = resolver_circuito(R1, R2, R3, V1_c2, V2_c2)
 
     # Valores medidos en laboratorio
@@ -101,8 +101,8 @@ if __name__ == "__main__":
     print("=" * 60)
 
     for titulo, V1, V2 in [
-        ("Circuito 1 (V1=9, V2=1.5)", V1_c1, V2_c1),
-        ("Circuito 2 (V1=9.22, V2=-2.66)", V1_c2, V2_c2),
+        ("Circuito 1 (V1=9.22, V2=-2.66)", V1_c1, V2_c1),
+        ("Circuito 2 (V1=9.22, V2=1.5)", V1_c2, V2_c2),
     ]:
         sens, I_base = sensibilidad(R1, R2, R3, V1, V2)
         print(f"\n{titulo} - Sensibilidad relativa (dI/I)/(dR/R):")
